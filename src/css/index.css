@@ -1,0 +1,299 @@
+/* 基本設定 */
+:root {
+    --primary-color: #9b59b6;
+    --secondary-color: #e91e63;
+    --background-color: #1a1a2e;
+    --text-color: #e0e0e0;
+    --white-color: #ffffff;
+    --font-main: 'Poppins', 'Noto Sans JP', sans-serif;
+    --font-sub: 'Noto Sans JP', sans-serif;
+    --button-height: 44px;
+    /* ここで統一高さを定義 */
+    --button-width: 200px;
+    /* 認証ボタンの幅を定義 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: var(--font-sub);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    overflow: hidden;
+    /* スクロールバーを隠す */
+}
+
+.hero-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.7)),
+        radial-gradient(circle at 10% 20%, var(--primary-color), transparent 70%),
+        radial-gradient(circle at 90% 80%, var(--secondary-color), transparent 70%);
+    background-blend-mode: screen;
+    z-index: -1;
+}
+
+header {
+    padding: 20px 40px;
+}
+
+.logo a {
+    font-family: var(--font-main);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--white-color);
+    text-shadow: 0 0 10px var(--primary-color);
+    text-decoration: none;
+}
+
+/* メインコンテンツ */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    height: calc(100% - 80px);
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.main-title {
+    font-family: var(--font-main);
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: var(--white-color);
+    text-shadow: 0 0 15px var(--secondary-color), 0 0 5px var(--white-color);
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    color: var(--text-color);
+}
+
+/* 認証ボタン */
+.auth-buttons .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 35px;
+    height: var(--button-height);
+    /* 統一高さを使用 */
+    margin: 0 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--white-color);
+}
+
+.btn-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--white-color);
+    border-color: var(--white-color);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 6px;
+    gap: 25px;
+}
+
+.gsi-material-button {
+    margin-top: 6px;
+    min-width: 220px;
+    padding-left: 14px;
+    padding-right: 18px;
+    height: var(--button-height);
+    /* 統一高さを使用 */
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: WHITE;
+    background-image: none;
+    border: 1px solid #747775;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #1f1f1f;
+    cursor: pointer;
+    font-family: 'Roboto', arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+    outline: none;
+    overflow: hidden;
+    padding: 0 12px;
+    position: relative;
+    text-align: center;
+    -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
+    transition: background-color .218s, border-color .218s, box-shadow .218s;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: var(--button-width);
+    max-width: 400px;
+    min-width: min-content;
+}
+
+.gsi-material-button .gsi-material-button-icon {
+    height: 20px;
+    margin-right: 12px;
+    min-width: 20px;
+    width: 20px;
+}
+
+.gsi-material-button .gsi-material-button-content-wrapper {
+    -webkit-align-items: center;
+    align-items: center;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+}
+
+.gsi-material-button .gsi-material-button-contents {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    font-family: 'Roboto', arial, sans-serif;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+}
+
+.gsi-material-button .gsi-material-button-state {
+    -webkit-transition: opacity .218s;
+    transition: opacity .218s;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.gsi-material-button:disabled {
+    cursor: default;
+    background-color: #ffffff61;
+    border-color: #1f1f1f1f;
+}
+
+.gsi-material-button:disabled .gsi-material-button-contents {
+    opacity: 38%;
+}
+
+.gsi-material-button:disabled .gsi-material-button-icon {
+    opacity: 38%;
+}
+
+.gsi-material-button:not(:disabled):active .gsi-material-button-state,
+.gsi-material-button:not(:disabled):focus .gsi-material-button-state {
+    background-color: #303030;
+    opacity: 12%;
+}
+
+.gsi-material-button:not(:disabled):hover {
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    box-shadow: 0 1px 2px 0 rgba(95, 102, 107, 0.3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+
+.gsi-material-button:not(:disabled):hover .gsi-material-button-state {
+    background-color: #303030;
+    opacity: 8%;
+}
+
+/* X ボタン専用カラー上書き（黒系） */
+.x-material-button {
+    background-color: #0f1419;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.x-material-button .gsi-material-button-icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* X ボタン専用カラー上書き（黒系） */
+.x-material-button {
+    background-color: #0f1419;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.x-material-button .gsi-material-button-icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+@media (max-width: 640px) {
+    :root {
+        --button-height: 40px;
+        /* モバイルでは少し小さくする */
+        --button-width: 130px;
+        /* 認証ボタンの幅を調整 */
+    }
+
+    .main-title {
+        font-size: 2.0rem;
+    }
+
+    .auth-buttons .btn {
+        padding: 0 20px;
+        margin: 6px 6px;
+        height: var(--button-height);
+    }
+
+    .gsi-material-button {
+        min-width: 180px;
+        font-size: 13px;
+        height: var(--button-height);
+        width: var(--button-width);
+    }
+}
