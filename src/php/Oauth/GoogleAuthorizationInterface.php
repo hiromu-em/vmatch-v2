@@ -15,7 +15,14 @@ interface GoogleAuthorizationInterface
      * @param string $accessToken アクセストークン
      * @return \Google\Client Google Clientオブジェクト
      */
-    public function setClient(array $accessToken = []): \Google\Client;
+    public function setClient(): \Google\Client;
+
+    /**
+     * アクセストークンの設定
+     * @param array $accessToken アクセストークン
+     * @return void
+     */
+    public function setAccessToken(array $accessToken): void;
 
     /**
      * 認可サーバーのURLを生成

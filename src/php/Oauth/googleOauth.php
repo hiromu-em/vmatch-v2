@@ -22,7 +22,7 @@ $config->setHost($host);
 $config->loadDotenvIfLocal();
 
 $googleAuthorization = new GoogleAuthorization($config, new \Google\Client());
-$client = $googleAuthorization->setClient($_SESSION['google_access_token'] ?? []);
+$googleAuthorization->setClient();
 
 if (!isset($_SESSION['google_access_token']) || empty($_SESSION['google_access_token'])) {
 
@@ -38,6 +38,17 @@ if (!isset($_SESSION['google_access_token']) || empty($_SESSION['google_access_t
     header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
     exit;
 }
+
+$AccessToken = $_SESSION['google_access_token'] ?? [];
+
+if (empty($AccessToken)) {
+    // エラーページへリダイレクト
+    http_response_code(500);
+    header('Location:' . filter_var(SYSTEMERROR, FILTER_SANITIZE_URL));
+    exit;
+}
+
+$googleAuthorization->setAccessToken($AccessToken);
 
 // IDトークンの取得
 $token = $googleAuthorization->getIdToken();

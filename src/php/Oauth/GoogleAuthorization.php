@@ -29,12 +29,10 @@ class GoogleAuthorization implements GoogleAuthorizationInterface
      * @param array $accessToken アクセストークン
      * @return Client Google Clientオブジェクト
      */
-    public function setClient(array $accessToken = []): Client
+    public function setClient(): Client
     {
         $this->client->setAuthConfig($this->config->getGoogleClientEnvVars());
-
         $this->client->setScopes('email');
-        $this->client->setAccessToken($accessToken);
 
         $this->client->setAccessType('offline');
         $this->client->setIncludeGrantedScopes(true);
@@ -45,6 +43,17 @@ class GoogleAuthorization implements GoogleAuthorizationInterface
 
         return $this->client;
     }
+
+    /**
+     * アクセストークンの設定
+     * @param array $accessToken アクセストークン
+     * @return void
+     */
+    public function setAccessToken(array $accessToken): void
+    {
+        $this->client->setAccessToken($accessToken);
+    }
+
     /**
      * 認可サーバーのURLを生成
      * @param string $state stateパラメーター
