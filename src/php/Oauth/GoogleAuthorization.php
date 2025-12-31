@@ -17,10 +17,10 @@ class GoogleAuthorization implements GoogleAuthorizationInterface
     private string $state = '';
 
     /**
-     * @param ConfigInterface $config 設定インターフェース
-     * @param Client $client Google Clientオブジェクト
+     * @param ConfigInterface|null $config 設定オブジェクト
+     * @param Client|null $client Google Clientオブジェクト
      */
-    public function __construct(private ConfigInterface $config, private Client $client)
+    public function __construct(private ?ConfigInterface $config = null, private ?Client $client = null)
     {
     }
 
