@@ -64,8 +64,7 @@ class GoogleAuthorization
     }
 
     /**
-     * stateパラメーターの生成
-     * @return string 生成されたstate
+     * stateの生成
      */
     public function createState(): string
     {
