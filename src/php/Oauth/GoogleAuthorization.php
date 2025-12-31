@@ -11,10 +11,13 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 /**
  * Google認可クラス
  */
-class GoogleAuthorization implements GoogleAuthorizationInterface
+class GoogleAuthorization
 {
     /** @var string $state stateパラメーター */
     private string $state = '';
+
+    /** @var string GOOGLE_CALLBACK コールバックURL */
+    private const string GOOGLE_CALLBACK = '/src/php/Oauth/googleCallback.php';
 
     /**
      * @param ConfigInterface|null $config 設定オブジェクト
