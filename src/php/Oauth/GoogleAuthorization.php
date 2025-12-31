@@ -26,7 +26,6 @@ class GoogleAuthorization implements GoogleAuthorizationInterface
 
     /**
      * Google Clientの設定
-     * @param array $accessToken アクセストークン
      * @return Client Google Clientオブジェクト
      */
     public function setClient(): Client
