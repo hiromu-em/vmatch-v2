@@ -81,12 +81,10 @@ class TwitterAuthorization
      */
     public function getUserVerifyCredentials(): array
     {
-        $user = get_object_vars($this->connection->get("account/verify_credentials", [
+        return get_object_vars($this->connection->get("account/verify_credentials", [
             'include_email' => 'true',
             'skip_status' => 'true',
             'include_entities' => 'false'
         ]));
-
-        return $user;
     }
 }
