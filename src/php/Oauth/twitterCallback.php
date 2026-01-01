@@ -12,27 +12,22 @@ session_start([
 ]);
 
 // ユーザーが認可を拒否した処理
-if (isset($_GET['denied'])) {
+if (!isset($_REQUEST['oauth_token']) || empty($_REQUEST['oauth_token'])) {
 
     header('Location: ' . filter_var('/', FILTER_SANITIZE_URL));
     exit;
 }
 
+$ouauth_token = $_SESSION['oauth_token'] ?? '';
+
 // トークンの照合
-if ($_SESSION['oauth_token'] !== $_GET['oauth_token']) {
+if ($ouauth_token !== $_GET['oauth_token']) {
 
     unset($_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
-    $clearUrl = strtok($_SERVER['REQUEST_URI'], '?');
 
-    // セッション情報やパラメータをクリアにして元のURLへリダイレクト
-    header('Location: ' . filter_var($clearUrl, FILTER_SANITIZE_URL));
-    exit;
-
-} elseif (!isset($_GET['oauth_token'])) {
-
-    // 不正なアクセス処理    
+    // エラーページへリダイレクト
     http_response_code(401);
-    include_once __DIR__ . '/../error/oauthError.php';
+    header('Location: ' . filter_var('../error/oauthError.php', FILTER_SANITIZE_URL));
     exit;
 }
 
@@ -46,7 +41,7 @@ $config->loadDotenvIfLocal();
 $twitterAutho = new TwitterOAuth(
     $_ENV['TWITTER_API_KEY'] ?? getenv('TWITTER_API_KEY'),
     $_ENV['TWITTER_API_KEY_SECRET'] ?? getenv('TWITTER_API_KEY_SECRET'),
-    $_SESSION['oauth_token'], 
+    $_SESSION['oauth_token'],
     $_SESSION['oauth_token_secret']
 );
 
