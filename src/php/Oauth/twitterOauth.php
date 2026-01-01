@@ -35,7 +35,7 @@ if (isset($_SESSION['access_token']) || !empty($_SESSION['access_token'])) {
 
     $access_token = $_SESSION['access_token'];
 
-    // Twitterの接続情報を作成
+    // アクセストークンを設定
     $twitterAuthorization->setOauthToken(
         $access_token['oauth_token'],
         $access_token['oauth_token_secret']
@@ -44,25 +44,33 @@ if (isset($_SESSION['access_token']) || !empty($_SESSION['access_token'])) {
     // ユーザー認証情報取得
     $user = $twitterAuthorization->getUserVerifyCredentials();
 
-    // データベース接続の設定
-    $databaseSettings = $config->getDatabaseSettings();
-
-    $databaseConnection = new \PDO(
-        $databaseSettings['dsn'],
-        $databaseSettings['user'],
-        $databaseSettings['password'],
-        $databaseSettings['options']
-    );
-
-    $userAuthentication = new UserAuthentication($databaseConnection);
-
-    if(empty($user) || !isset($user['id_str'])) {
+    if (empty($user) || !isset($user['id_str'])) {
 
         // エラーページへリダイレクト
         http_response_code(500);
         header('Location:' . filter_var(SYSTEMERROR, FILTER_SANITIZE_URL));
         exit;
     }
+
+    // データベース接続の設定
+    $databaseSettings = $config->getDatabaseSettings();
+
+    try {
+        $databaseConnection = new \PDO(
+            $databaseSettings['dsn'],
+            $databaseSettings['user'],
+            $databaseSettings['password'],
+            $databaseSettings['options']
+        );
+    } catch (PDOException $e) {
+
+        // エラーページへリダイレクト
+        http_response_code(500);
+        header('Location:' . filter_var(SYSTEMERROR, FILTER_SANITIZE_URL));
+        exit;
+    }
+
+    $userAuthentication = new UserAuthentication($databaseConnection);
 
     // プロバイダーIDの存在確認
     if ($userAuthentication->providerIdExists($user['id_str'])) {
@@ -95,16 +103,12 @@ if (isset($_SESSION['access_token']) || !empty($_SESSION['access_token'])) {
     exit;
 }
 
-
 // リクエストトークンを取得
 $requestToken = $twitterAuthorization->getRequestToken();
 
 $_SESSION['oauth_token'] = $requestToken['oauth_token'];
 $_SESSION['oauth_token_secret'] = $requestToken['oauth_token_secret'];
 
-// 認証URLを作成
-$url = $twitterAuthorization->createAuthUrl();
-
 // 認証サーバーにリダイレクト
-header("Location: $url");
+header("Location: " . filter_var($twitterAuthorization->createAuthUrl(), FILTER_SANITIZE_URL));
 exit;
