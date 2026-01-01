@@ -13,8 +13,6 @@ const DASHBOARD = '../dashboard.php';
 const PROFILESETTNG = '../UserAuthentication/profileSetting.php';
 const CONFIGERROR = '../error/configError.php';
 
-$twitterAuthorization = new TwitterAuthorization();
-
 $config = new Config();
 
 // 環境変数の読み込み（ローカル環境のみ）
@@ -22,7 +20,9 @@ $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $config->setHost($host);
 $config->loadDotenvIfLocal();
 
-if (isset($_SESSION['access_token'])) {
+$twitterAuthorization = new TwitterAuthorization();
+
+if (isset($_SESSION['access_token']) || !empty($_SESSION['access_token'])) {
 
     $access_token = $_SESSION['access_token'];
 
