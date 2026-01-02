@@ -34,8 +34,8 @@ if ($ouauth_token !== $_GET['oauth_token']) {
 $config = new Config();
 
 // 環境変数の読み込み（ローカル環境のみ）
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$config->setHost($host);
+$serverHost = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$config->setHost($serverHost);
 $config->loadDotenvIfLocal();
 
 $twitterAutho = new TwitterOAuth(
