@@ -47,8 +47,10 @@ $twitterAutho = new TwitterOAuth(
 
 $twitterAuthorization = new TwitterAuthorization($twitterAutho);
 
+$oauthVerifier = $_GET['oauth_verifier'] ?? '';
+
 // アクセストークンを取得してセッションに保存
-$_SESSION['access_token'] = $twitterAuthorization->exchangeAccessToken();
+$_SESSION['access_token'] = $twitterAuthorization->exchangeAccessToken($oauthVerifier);
 
 header('Location:' . filter_var('twitterOauth.php', FILTER_SANITIZE_URL));
 exit;

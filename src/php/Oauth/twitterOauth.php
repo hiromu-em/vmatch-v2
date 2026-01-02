@@ -17,8 +17,8 @@ const SYSTEMERROR = '../error/systemError.php';
 $config = new Config();
 
 // 環境変数の読み込み（ローカル環境のみ）
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$config->setHost($host);
+$serverHost = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$config->setHost($serverHost);
 $config->loadDotenvIfLocal();
 
 $twitterAutho = new TwitterOAuth(
@@ -106,9 +106,12 @@ if (isset($_SESSION['access_token']) || !empty($_SESSION['access_token'])) {
 // リクエストトークンを取得
 $requestToken = $twitterAuthorization->getRequestToken();
 
+// 認可サーバーのURLを作成
+$authUrl = $twitterAuthorization->createAuthUrl($requestToken['oauth_token']);
+
 $_SESSION['oauth_token'] = $requestToken['oauth_token'];
 $_SESSION['oauth_token_secret'] = $requestToken['oauth_token_secret'];
 
 // 認証サーバーにリダイレクト
-header("Location: " . filter_var($twitterAuthorization->createAuthUrl(), FILTER_SANITIZE_URL));
+header("Location: " . filter_var($authUrl, FILTER_SANITIZE_URL));
 exit;

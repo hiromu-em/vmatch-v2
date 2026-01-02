@@ -38,44 +38,34 @@ class TwitterAuthorization
 
     /**
      * リクエストトークンを取得
-     * @param TwitterOAuth $connection
-     * @return array `request_token`
      */
     public function getRequestToken(): array
     {
-        $request_token = $this->twitterOAuth->oauth('oauth/request_token', [
-            'oauth_callback' => (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) ?
-                self::Twitter_CALLBACK__LOCAL_URL : getenv('TWITTER_CALLBACK_URL')
+        return $this->twitterOAuth->oauth('oauth/request_token', [
+            'oauth_callback' => self::Twitter_CALLBACK__LOCAL_URL
         ]);
-
-        return $request_token;
     }
 
     /**
      * リクエストトークンとアクセストークンを交換
-     * @param TwitterOAuth $connection TwitterOAuth接続情報
-     * @return array `access_token`
+     * @param string $oauthVerifier OAuth検証子
      */
-    public function exchangeAccessToken(): array
+    public function exchangeAccessToken(string $oauthVerifier): array
     {
-        $access_token = $this->twitterOAuth->oauth("oauth/access_token", [
-            "oauth_verifier" => $_GET['oauth_verifier']
+        return $this->twitterOAuth->oauth("oauth/access_token", [
+            "oauth_verifier" => $oauthVerifier
         ]);
-
-        return $access_token;
     }
 
     /**
      * 認可サーバーのURLを作成
-     * @return string 認可サーバーのURL
+     * @param string $oauthToken リクエストトークン
      */
-    public function createAuthUrl(): string
+    public function createAuthUrl(string $oauthToken): string
     {
-        $auth_url = $this->twitterOAuth->url('oauth/authorize', [
-            'oauth_token' => $_SESSION['oauth_token']
+        return $this->twitterOAuth->url('oauth/authorize', [
+            'oauth_token' => $oauthToken
         ]);
-
-        return $auth_url;
     }
 
     /**
