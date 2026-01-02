@@ -31,7 +31,7 @@ class TwitterAuthorization
      * @param string|null $oauthToken
      * @param string|null $oauthTokenSecret
      */
-    public function setOauthToken(?string $oauthToken = null, ?string $oauthTokenSecret = null): void
+    public function setOauthToken(string $oauthToken = "", string $oauthTokenSecret = ""): void
     {
         $this->twitterOAuth->setOauthToken($oauthToken, $oauthTokenSecret);
     }
