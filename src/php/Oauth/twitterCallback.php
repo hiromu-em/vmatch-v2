@@ -49,6 +49,14 @@ $twitterAuthorization = new TwitterAuthorization($twitterAutho);
 
 $oauthVerifier = $_GET['oauth_verifier'] ?? '';
 
+if (empty($oauthVerifier)) {
+
+    // エラーページへリダイレクト
+    http_response_code(400);
+    header('Location:' . filter_var('../error/oauthError.php', FILTER_SANITIZE_URL));
+    exit;
+}
+
 // アクセストークンを取得してセッションに保存
 $_SESSION['access_token'] = $twitterAuthorization->exchangeAccessToken($oauthVerifier);
 
