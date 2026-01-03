@@ -27,10 +27,10 @@ class ProfileSetting implements ProfileSettingInterface
     /**
      * ソーシャルメディアのURLを設定する
      */
-    public function setSocialMediaUrls(string ...$snsUrls): void
+    public function setSocialMediaUrls(array $snsUrls): void
     {
-        $this->userProfile['twitterUrl'] = $snsUrls[0];
-        $this->userProfile['youtubeUrl'] = $snsUrls[1];
-        $this->userProfile['twitchUrl'] = $snsUrls[2];
+        $this->userProfile['twitterUrl'] = $snsUrls['twitter'];
+        $this->userProfile['youtubeUrl'] = $snsUrls['youtube'];
+        $this->userProfile['twitchUrl'] = $snsUrls['twitch'];
     }
 }

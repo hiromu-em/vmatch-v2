@@ -9,7 +9,7 @@ interface ProfileSettingInterface
 
     public function setActivityPlaces(bool $youtube, bool $twitch): void;
 
-    public function setSocialMediaUrls(string ...$snsUrls): void;
+    public function setSocialMediaUrls(array $snsUrls): void;
 
 
 }
