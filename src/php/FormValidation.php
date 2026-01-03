@@ -32,8 +32,10 @@ class FormValidation
 
         // 各URLの形式を検証
         foreach ($urls as $platform => $url) {
-            !empty($url) && (filter_var($url, FILTER_VALIDATE_URL) === false ||
-                !preg_match('/^https?:\/\//', $url)) ? $this->errorMessages[] = "{$platform}のURLが正しくありません。" : "";
+            if (!empty($url)) {
+                filter_var($url, FILTER_VALIDATE_URL) === false ||
+                    !preg_match('/^https?:\/\//', $url) ? $this->errorMessages[] = "{$platform}のURLが正しくありません。" : "";
+            }
         }
 
         // 空のエラーメッセージを削除
