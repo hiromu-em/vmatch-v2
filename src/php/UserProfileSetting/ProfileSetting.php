@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace Vmatch\UserProfileSetting;
 
-// use
-use Vmatch\UserProfileSetting\ProfileSettingInterface;
-
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
 class ProfileSetting implements ProfileSettingInterface
