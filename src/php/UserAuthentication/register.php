@@ -41,13 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $userAuthentication = new UserAuthentication($databaseConnection);
 
-    // メールアドレスの重複を確認する
-    if (empty($errorMessage) && $userAuthentication->existsByEmail($email)) {
-        $errorMessage = $userAuthentication->getErrorMessage();
-    } else {
-        $_SESSION['email'] = $email;
-        header('Location: newRegistration.php');
-        exit;
+    if (empty($errorMessage)) {
+
+        // メールアドレスの存在を確認する
+        if ($userAuthentication->existsByEmail($email)) {
+            $errorMessage = $userAuthentication->getErrorMessage();
+        } else {
+            $_SESSION['email'] = $email;
+            header('Location: newRegistration.php');
+            exit;
+        }
     }
 
 }
