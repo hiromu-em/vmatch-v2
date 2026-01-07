@@ -105,6 +105,36 @@ class FormValidation
     }
 
     /**
+     * メールアドレス形式を検証する。
+     * @param string|null $email
+     * @return bool メールアドレス形式結果
+     */
+    public function validateEmail(?string $email): bool
+    {
+        //NULLチェック or 空文字チェック
+        if (empty($email)) {
+            $this->errorMessages[] = "メールアドレスを入力してください。";
+            return false;
+        }
+
+        $email = trim($email);
+
+        // メールアドレスの形式チェック
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->errorMessages[] = "メールアドレスの形式が正しくありません。";
+            return false;
+        }
+
+        //ドメイン存在チェック
+        if (!checkdnsrr(substr(strrchr($email, "@"), 1), "MX")) {
+            $this->errorMessages[] = "メールアドレスの形式が正しくありません。";
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * エラーが存在するか確認する。
      */
     public function hasErrorMessages(): bool
