@@ -13,7 +13,7 @@ session_start([
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $email = $_POST['email'] ?? '';
+    $email = trim($_POST['email'] ?? '');
 
     // データベース接続の設定
     $config = new Config();
@@ -29,28 +29,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $databaseSettings['options']
     );
 
-    $userAuthentication = new UserAuthentication($databaseConnection);
     $formValidation = new FormValidation();
 
-    // メールアドレス形式確認
-    $isValidEmail = $formValidation->validateEmail($email);
+    // メールアドレス形式を検証する
+    $formValidation->validateEmail($email);
 
-    // 既登録ユーザー確認
-    $isRegisteredUsers = $userAuthentication->emailExists($email);
+    // エラーメッセージがある場合取得
+    if ($formValidation->hasErrorMessages()) {
+        $errorMessage = $formValidation->getErrorMessage();
+    }
 
-    // サインインコード設定
-    $userAuthentication->setSignInCodes($isRegisteredUsers, false);
+    $userAuthentication = new UserAuthentication($databaseConnection);
 
-    // メールアドレス形式OK && 未登録ユーザーの場合、登録処理へ進む
-    if ($isValidEmail && !$isRegisteredUsers) {
+    // メールアドレスの重複を確認する
+    if (empty($errorMessage) && $userAuthentication->existsByEmail($email)) {
+        $errorMessage = $userAuthentication->getErrorMessage();
+    } else {
         $_SESSION['email'] = $email;
         header('Location: newRegistration.php');
         exit;
-
-    } else {
-        // エラーメッセージを取得
-        $errorMessages = $userAuthentication->errorMessages();
     }
+
 }
 ?>
 <!DOCTYPE html>
@@ -60,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vmatch-新規登録-</title>
-    <!-- 既存のグローバルスタイルと register 用スタイルを読み込む -->
     <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/register.css">
 </head>
@@ -76,13 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <section class="hero-content register-card">
             <h1 class="main-title">新規登録</h1>
 
-            <?php if (!empty($errorMessages)): ?>
+            <?php if (!empty($errorMessage)): ?>
                 <div class="error-messages-container">
-                    <?php foreach ($errorMessages as $message): ?>
-                        <div class="error-item">
-                            <p><?php echo nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')); ?></p>
-                        </div>
-                    <?php endforeach; ?>
+                    <div class="error-item">
+                        <p><?php echo nl2br(htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8')); ?></p>
+                    </div>
                 </div>
             <?php endif; ?>
 
