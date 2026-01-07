@@ -8,6 +8,8 @@ class FormValidation
 
     private array $errorMessages = [];
 
+    private string $errorMessage = '';
+
     /**
      * プロフィール写真を検証する。
      * @param array $profilePicture アップロードされたプロフィール画像の情報
@@ -107,31 +109,23 @@ class FormValidation
     /**
      * メールアドレス形式を検証する。
      * @param string|null $email
-     * @return bool メールアドレス形式結果
      */
-    public function validateEmail(?string $email): bool
+    public function validateEmail(?string $email): void
     {
         //NULLチェック or 空文字チェック
         if (empty($email)) {
-            $this->errorMessages[] = "メールアドレスを入力してください。";
-            return false;
+            $this->errorMessage = "メールアドレスを入力してください。";
+            return;
         }
-
-        $email = trim($email);
 
         // メールアドレスの形式チェック
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->errorMessages[] = "メールアドレスの形式が正しくありません。";
-            return false;
+            $this->errorMessage = "メールアドレスの形式が正しくありません。";
+            return;
+        } elseif (!checkdnsrr(substr(strrchr($email, "@"), 1), "MX")) {
+            $this->errorMessage = "メールアドレスの形式が正しくありません。";
+            return;
         }
-
-        //ドメイン存在チェック
-        if (!checkdnsrr(substr(strrchr($email, "@"), 1), "MX")) {
-            $this->errorMessages[] = "メールアドレスの形式が正しくありません。";
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -139,11 +133,24 @@ class FormValidation
      */
     public function hasErrorMessages(): bool
     {
-        return !empty($this->errorMessages);
+        if (!empty($this->errorMessage) || !empty($this->errorMessages)) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * エラーメッセージを取得する。
+     * @return string エラーメッセージ
+     */
+    public function getErrorMessage(): string
+    {
+        return $this->errorMessage;
+    }
+
+    /**
+     * エラーメッセージを取得する。
+     * @return array エラーメッセージ配列
      */
     public function getErrorMessages(): array
     {
