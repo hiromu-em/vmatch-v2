@@ -49,7 +49,8 @@ class UserAuthentication
     }
 
     /**
-     * メールアドレスの存在を確認する
+     * メールアドレスの存在を確認する<br>
+     * `$authAction`が `register` かつ、既存ユーザーであればエラーメッセージを設定する
      * @param string $email メールアドレス
      * @param string $authAction 認証アクション
      * @return bool メールアドレス存在結果
@@ -101,9 +102,7 @@ class UserAuthentication
     }
 
     /**
-     * パスワードの照合
-     * @param string $email ユーザーメールアドレス
-     * @param string $password パスワード
+     * パスワードの照合を行う
      * @return bool 照合結果
      */
     public function verifyPassword(string $email, string $password): bool
