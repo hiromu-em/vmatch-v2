@@ -110,15 +110,13 @@ class FormValidation
      * メールアドレス形式を検証する。
      * @param string|null $email
      */
-    public function validateEmail(?string $email): void
+    public function validateEmail(?string $email, string $authAction = ''): void
     {
-        //NULLチェック or 空文字チェック
         if (empty($email)) {
             $this->errorMessage = "メールアドレスを入力してください。";
             return;
         }
 
-        // メールアドレスの形式チェック
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->errorMessage = "メールアドレスの形式が正しくありません。";
             return;
@@ -126,40 +124,42 @@ class FormValidation
             $this->errorMessage = "メールアドレスの形式が正しくありません。";
             return;
         }
+
+        if ($authAction === 'login') {
+            $this->errorMessage = "メールアドレス\nまたはパスワードが正しくありません。";
+            return;
+        }
     }
 
     /**
-     * パスワードの形式を検証
-     * @param string|null $password
-     * @return bool パスワード形式結果
+     * パスワードの形式を検証する。 
      */
-    public function validatePassword(?string $password): void
+    public function validatePassword(?string $password, string $authAction = ''): void
     {
-        //NULLチェック or 空文字チェック
 
         if (empty($password)) {
             $this->arrayErrorMessage[] = "パスワードを入力してください。";
             return;
         }
 
-        // 文字列の長さチェック
         if (mb_strlen($password) < 8) {
             $this->arrayErrorMessage[] = "パスワードは8文字以上で入力してください。";
         }
 
-        // 英字の有無チェック
         if (!preg_match('/[A-Za-z]/', $password)) {
             $this->arrayErrorMessage[] = "英字を1文字含めてください。";
         }
 
-        // 数字の有無チェック
         if (!preg_match('/\d/', $password)) {
             $this->arrayErrorMessage[] = "数字を1文字含めてください。";
         }
 
-        // 記号の有無チェック
         if (!preg_match('/[@#\$%\^&\*]/', $password)) {
             $this->arrayErrorMessage[] = "記号(@ # $ % ^ & *) を1文字含めてください。";
+        }
+
+        if ($authAction === 'login' && !empty($this->arrayErrorMessage)) {
+            $this->errorMessage = "メールアドレス\nまたはパスワードが正しくありません。";
         }
     }
 
