@@ -53,10 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errorMessage)) {
 
         // DBにメールアドレス・パスワードが存在するか確認
-        $existingUsersEmail = $userAuthentication->emailExists($email);
+        $existingUsersEmail = $userAuthentication->existsByEmail($email, 'login');
         $existingUsersPassword = $userAuthentication->verifyPassword($email, $password);
 
-        // 認証済みユーザー情報設定またはエラーコード設定
         $existingUsersEmail && $existingUsersPassword === true
             ? $userAuthentication->setAuthenticatedUser($email, $password) : $userAuthentication->setErrorCodes(9);
 

@@ -51,9 +51,10 @@ class UserAuthentication
     /**
      * メールアドレスの存在を確認する
      * @param string $email メールアドレス
+     * @param string $authAction 認証アクション
      * @return bool メールアドレス存在結果
      */
-    public function existsByEmail(string $email): bool
+    public function existsByEmail(string $email, string $authAction): bool
     {
         $query = "SELECT EXISTS(SELECT 1 FROM users_vmatch WHERE email = ?) as status";
         $statement = $this->databaseConnection->prepare($query);
@@ -61,7 +62,7 @@ class UserAuthentication
 
         $result = $statement->fetch();
 
-        if ($result['status']) {
+        if ($result['status'] && $authAction === 'register') {
             $this->setErrorMessage("登録済みユーザーです。ログインしてください。");
             return true;
         }

@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errorMessage)) {
 
         // メールアドレスの存在を確認する
-        if ($userAuthentication->existsByEmail($email)) {
+        if ($userAuthentication->existsByEmail($email, 'register')) {
             $errorMessage = $userAuthentication->getErrorMessage();
         } else {
             $_SESSION['email'] = $email;
