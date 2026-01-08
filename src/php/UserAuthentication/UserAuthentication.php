@@ -185,6 +185,16 @@ class UserAuthentication
         $statement = $this->databaseConnection->prepare("INSERT INTO users_vmatch_providers(user_id, provider, provider_user_id) VALUES (?, ?, ?)");
         $statement->execute([$userId, $provider, $providerId]);
     }
+    
+    public function setErrorMessage(string $errorMessage): void
+    {
+        $this->errorMessage = $errorMessage;
+    }
+
+    public function getErrorMessage(): string
+    {
+        return $this->errorMessage;
+    }
 
     /**
      * エラーコードを設定する
