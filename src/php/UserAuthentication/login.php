@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $config = new Config();
 
-    // データベース接続の設定
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
     $config->setHost($host);
     $databaseSettings = $config->getDatabaseSettings();
@@ -41,12 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userAuthentication = new UserAuthentication($databaseConnection);
     $formValidation = new FormValidation();
 
-    // フォーム入力検証
     $formValidation->validateEmail($email);
     $formValidation->validatePassword($password);
 
     // メールアドレス・パスワード形式確認
-    if ($formValidation->hasErrorMessages()) {
+    if ($formValidation->isErrorMessages()) {
         $errorMessage = $formValidation->getLoginErrorMessage();
     }
 
