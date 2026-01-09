@@ -49,29 +49,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $userAuthentication = new UserAuthentication($databaseConnection);
 
-        $existingUsersEmail = $userAuthentication->existsByEmail($email, 'login');
-        $existingUsersPassword = $userAuthentication->verifyPassword($email, $password);
+        $isEmailRegistered = $userAuthentication->existsByEmail($email, 'login');
+        $isPasswordMatched = $userAuthentication->verifyPassword($email, $password);
 
-        $existingUsersEmail && $existingUsersPassword === true
-            ? $userAuthentication->setAuthenticatedUser($email, $password) : $userAuthentication->setErrorCodes(9);
+        if ($isEmailRegistered && $isPasswordMatched) {
 
-        // エラーメッセージ取得
-        if (!empty($userAuthentication->getErrorCodes())) {
-            $errorMessage = $userAuthentication->errorMessages();
+            $_SESSION['authenticatedUser'] = [
+                'email' => $email,
+                'password' => $password
+            ];
+
+            header('Location: ../dashboard.php');
+            exit;
+        } else {
+            $errorMessage = $userAuthentication->getErrorMessage();
         }
-    }
-
-    // 認証済みユーザー情報取得
-    $authenticatedUser = $userAuthentication->getAuthenticatedUser() ?? '';
-
-    if (empty($errorMessage) && $authenticatedUser !== '') {
-        // セッションに認証済みユーザー情報を保存
-        $_SESSION['authenticatedUser'] = $authenticatedUser;
-
-        // ダッシュボードへリダイレクト
-        header('Location: ../dashboard.php');
-        exit;
-
     }
 }
 ?>
@@ -101,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if (!empty($errorMessage)): ?>
             <div class="error-messages-container">
                 <div class="error-item">
-                    <p><?php echo nl2br(htmlspecialchars(array_pop($errorMessage), ENT_QUOTES, 'UTF-8')); ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($errorMessage)); ?></p>
                 </div>
             </div>
         <?php endif; ?>
