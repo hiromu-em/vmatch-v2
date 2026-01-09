@@ -13,9 +13,9 @@ class FormValidation
     /**
      * プロフィール写真を検証する。
      * @param array $profilePicture アップロードされたプロフィール画像の情報
-     * @return bool エラーがある場合はtrue、ない場合はfalse
+     * @return bool 検証結果
      */
-    public function validationImage(array $profilePicture): bool
+    public function validateImage(array $profilePicture): bool
     {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
         $maxFileSize = 3 * 1024 * 1024;
@@ -53,7 +53,7 @@ class FormValidation
     /**
      * ユーザー名を検証する。
      */
-    public function validationUserName(string $name): void
+    public function validateUserName(string $name): void
     {
         if (empty($name)) {
             $this->arrayErrorMessage[] = "名前を入力してください。";
@@ -65,7 +65,7 @@ class FormValidation
     /**
      * SNSのURLを検証する。
      */
-    public function validationUrls(array $urls): void
+    public function validateUrls(array $urls): void
     {
         // 少なくとも1つのURLが入力されているか確認
         if (empty($urls['X(Twitter)']) && empty($urls['YouTube']) && empty($urls['Twitch'])) {
@@ -99,7 +99,7 @@ class FormValidation
     /**
      * 活動プラットフォームを検証する。
      */
-    public function validationActivevity(bool $activityYoutube, bool $activityTwitch): void
+    public function validateActivity(bool $activityYoutube, bool $activityTwitch): void
     {
         if (!$activityYoutube && !$activityTwitch) {
             $this->arrayErrorMessage[] = "1つ以上の活動プラットフォームを選択してください。";
