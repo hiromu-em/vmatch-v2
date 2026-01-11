@@ -5,7 +5,7 @@ use Vmatch\UserAuthentication\UserAuthentication;
 use Vmatch\FormValidation;
 use Vmatch\Config;
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 session_start([
     'use_strict_mode' => 1
@@ -62,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vmatch-新規登録-</title>
-    <link rel="stylesheet" href="../../css/index.css">
-    <link rel="stylesheet" href="../../css/register.css">
+    <link rel="stylesheet" href="../../public/css/index.css">
+    <link rel="stylesheet" href="../../public/css/register.css">
 </head>
 
 <body>
