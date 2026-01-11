@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "autoload": {
         "psr-4": {
-            "Vmatch\\": ["app/", "public/"]
+            "Vmatch\\": "app/"
         }
     },
     "require": {
