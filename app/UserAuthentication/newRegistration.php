@@ -18,10 +18,6 @@ if ($_SESSION['email'] === null || !isset($_SESSION['email'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    /*
-     * セッションからメールアドレスを取得
-     * セッションにメールアドレスが無ければトップページへリダイレクト
-     */
     $email = $_SESSION['email'] ?? header('Location: /');
 
     $password = $_POST['password'] ?? '';
@@ -40,10 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $databaseSettings['options']
     );
 
-
     $formValidation = new FormValidation();
-
-    // パスワード形式を確認
     $formValidation->validatePassword($password);
 
     // エラーメッセージの有無を確認
