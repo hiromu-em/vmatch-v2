@@ -6,10 +6,7 @@ namespace Vmatch\Oauth;
 use Google\Client;
 use Vmatch\ConfigInterface;
 
-/**
- * Google認可クラス
- */
-class GoogleAuthorization
+class GoogleOAuthClient
 {
     private const string GOOGLE_CALLBACK = '/app/Oauth/googleCallback.php';
 

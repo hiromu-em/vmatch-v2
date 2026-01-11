@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Vmatch\Oauth\GoogleAuthorization;
+use Vmatch\Oauth\GoogleOAuthClient;
 use Vmatch\Config;
 
 session_start(['use_strict_mode' => 1]);
@@ -19,7 +19,7 @@ $config->setHost($_SERVER['HTTP_HOST'] ?? 'localhost');
 // 環境変数の読み込み
 $config->loadDotenvIfLocal();
 
-$googleAuthorization = new GoogleAuthorization($config, new \Google\Client());
+$googleAuthorization = new GoogleOAuthClient($config, new \Google\Client());
 $state = $_SESSION['google_oauth_state'] ?? '';
 
 if ($_GET['state'] !== $state) {

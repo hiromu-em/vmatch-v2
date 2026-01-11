@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Vmatch\Oauth\GoogleAuthorization;
+use Vmatch\Oauth\GoogleOAuthClient;
 use Vmatch\UserAuthentication\UserAuthentication;
 use Vmatch\Config;
 
@@ -19,7 +19,7 @@ $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $config->setHost($host);
 $config->loadDotenvIfLocal();
 
-$googleAuthorization = new GoogleAuthorization($config, new \Google\Client());
+$googleAuthorization = new GoogleOAuthClient($config, new \Google\Client());
 $googleAuthorization->setClient();
 
 if (!isset($_SESSION['google_access_token']) || empty($_SESSION['google_access_token'])) {
