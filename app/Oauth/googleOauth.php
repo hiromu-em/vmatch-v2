@@ -15,7 +15,6 @@ const SYSTEMERROR = '../error/systemError.php';
 
 $config = new Config();
 
-// 環境変数の読み込み（ローカル環境のみ）
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $config->setHost($host);
 $config->loadDotenvIfLocal();
@@ -25,12 +24,10 @@ $googleAuthorization->setClient();
 
 if (!isset($_SESSION['google_access_token']) || empty($_SESSION['google_access_token'])) {
 
-    // stateパラメーターを生成してSESSIONに保存
     $state = $googleAuthorization->createState();
-    $_SESSION['google_oauth_state'] = $state;
     $googleAuthorization->setClientState($state);
 
-    // コード検証者を生成してSESSIONに保存
+    $_SESSION['google_oauth_state'] = $state;
     $_SESSION['google_code_verifier'] = $googleAuthorization->generateCodeVerifier();
 
     $authUrl = $googleAuthorization->createAuthUrl();
@@ -41,7 +38,6 @@ if (!isset($_SESSION['google_access_token']) || empty($_SESSION['google_access_t
 $AccessToken = $_SESSION['google_access_token'] ?? [];
 
 if (empty($AccessToken)) {
-    // エラーページへリダイレクト
     http_response_code(500);
     header('Location:' . filter_var(SYSTEMERROR, FILTER_SANITIZE_URL));
     exit;
@@ -49,12 +45,9 @@ if (empty($AccessToken)) {
 
 $googleAuthorization->setAccessToken($AccessToken);
 
-// IDトークンの取得
 $token = $googleAuthorization->getIdToken();
 
 if (empty($token)) {
-
-    // エラーページへリダイレクト
     http_response_code(500);
     header('Location:' . filter_var(SYSTEMERROR, FILTER_SANITIZE_URL));
     exit;
@@ -71,30 +64,23 @@ $databaseConnection = new \PDO(
 
 $userAuthentication = new UserAuthentication($databaseConnection);
 
-// IDが存在する場合、ダッシュボードへリダイレクト
 if ($userAuthentication->providerIdExists($token['sub'])) {
     header('Location:' . filter_var(DASHBOARD, FILTER_SANITIZE_URL));
     exit;
 }
 
 try {
-    // ユーザーのメールアドレスを登録
+    // 新規登録処理
     $userAuthentication->registerEmail($token['email']);
-
-    // 該当するユーザーのIDを検索する
     $userId = $userAuthentication->getSearchUserId($token['email']);
-
-    // ユーザーIDとプロパイダ―IDを紐付ける
     $userAuthentication->linkProviderUserId($userId, $token['sub'], 'google');
 
 } catch (PDOException $e) {
 
-    // エラーページへリダイレクト
     http_response_code(500);
     header('Location:' . filter_var(SYSTEMERROR, FILTER_SANITIZE_URL));
     exit;
 }
 
-// プロフィール設定へリダイレクト
 header('Location:' . filter_var(PROFILESETTNG, FILTER_SANITIZE_URL));
 exit;

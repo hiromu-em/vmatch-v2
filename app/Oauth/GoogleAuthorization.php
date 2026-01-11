@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Vmatch\Oauth;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 use Google\Client;
 use Vmatch\ConfigInterface;
 
@@ -13,23 +11,20 @@ use Vmatch\ConfigInterface;
  */
 class GoogleAuthorization
 {
-    /** @var string $state stateパラメーター */
     private string $state = '';
 
-    /** @var string GOOGLE_CALLBACK コールバックURL */
     private const string GOOGLE_CALLBACK = '/app/Oauth/googleCallback.php';
 
     /**
-     * @param ConfigInterface|null $config 設定オブジェクト
-     * @param Client|null $client Google Clientオブジェクト
+     * @param ConfigInterface|null $config
+     * @param Client|null $client 
      */
     public function __construct(private ?ConfigInterface $config = null, private ?Client $client = null)
     {
     }
 
     /**
-     * Google Clientの設定
-     * @return Client Google Clientオブジェクト
+     * Clientの設定
      */
     public function setClient(): Client
     {
