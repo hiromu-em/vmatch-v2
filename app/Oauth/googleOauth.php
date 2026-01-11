@@ -24,7 +24,7 @@ $googleAuthorization->setClient();
 
 if (!isset($_SESSION['google_access_token']) || empty($_SESSION['google_access_token'])) {
 
-    $state = $googleAuthorization->createState();
+    $state = bin2hex(random_bytes(128 / 8));
     $googleAuthorization->setClientState($state);
 
     $_SESSION['google_oauth_state'] = $state;

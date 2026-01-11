@@ -20,12 +20,9 @@ $config->setHost($_SERVER['HTTP_HOST'] ?? 'localhost');
 $config->loadDotenvIfLocal();
 
 $googleAuthorization = new GoogleAuthorization($config, new \Google\Client());
-$googleAuthorization->setState($_SESSION['google_oauth_state'] ?? '');
+$state = $_SESSION['google_oauth_state'] ?? '';
 
-try {
-    $googleAuthorization->verifyState($_GET['state'] ?? '');
-} catch (\InvalidArgumentException $e) {
-
+if ($_GET['state'] !== $state) {
     unset($_SESSION['google_oauth_state'], $_SESSION['google_code_verifier']);
 
     http_response_code(400);
