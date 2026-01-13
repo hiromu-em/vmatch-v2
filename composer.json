@@ -4,7 +4,8 @@
         "psr-4": {
             "Vmatch\\": "app/",
             "Routers\\": "routers/",
-            "Controller\\": "controller/"
+            "Controller\\": "app/Controller",
+            "Requests\\": "app/Requests"
         }
     },
     "require": {
