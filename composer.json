@@ -5,7 +5,7 @@
             "Vmatch\\": "app/",
             "Routers\\": "routers/",
             "Controller\\": "app/Controller",
-            "Requests\\": "app/Requests"
+            "Request\\": "app/Requests"
         }
     },
     "require": {
