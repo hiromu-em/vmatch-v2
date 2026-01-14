@@ -1,13 +1,13 @@
 <?php
 namespace Routers;
 
-use Requests\Requests;
+use Request\Request;
 
 class Router
 {
     private $routes = [];
 
-    public function __construct(private Requests $request)
+    public function __construct(private Request $request)
     {
     }
 
