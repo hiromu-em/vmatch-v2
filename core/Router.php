@@ -1,5 +1,5 @@
 <?php
-namespace Routers;
+namespace Router;
 
 use Request\Request;
 
