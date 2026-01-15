@@ -30,6 +30,10 @@ class Router
 
                 $controller = new $handler[0]($this->request);
                 $action = $handler[1];
+
+                if(!empty($route['parameters'])){
+                    return $controller->$action($route['parameters']);
+                }
                 return $controller->$action();
             }
         }
