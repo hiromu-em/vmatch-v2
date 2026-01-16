@@ -12,8 +12,8 @@ class TopController
     {
     }
 
-    public function showTop(): void
+    public function showTop(ViewRenderer $viewRenderer): void
     {
-        include __DIR__ . '/../../public/resources/views/top.php';
+        $viewRenderer->render('top');
     }
 }
