@@ -1,21 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Vmatch;
+namespace Core;
 
 use Dotenv\Dotenv;
 
-class Config implements ConfigInterface
+class Config
 {
-    /**
-     * ホスト名
-     * @var string
-     */
     private string $host = '';
 
     /**
      * 環境に応じたデータベース接続の設定を取得
-     * @return array データベース接続設定
      */
     public function getDatabaseSettings(): array
     {
@@ -29,7 +24,6 @@ class Config implements ConfigInterface
 
     /**
      * ローカル環境用のデータベース設定を取得
-     * @return array データベース接続設定
      */
     public function getLocalDatabaseSettings(): array
     {
@@ -44,7 +38,6 @@ class Config implements ConfigInterface
 
     /**
      * 本番環境用のデータベース設定を取得
-     * @return array データベース接続設定
      */
     public function getProductionDatabaseSettings(): array
     {
@@ -59,10 +52,6 @@ class Config implements ConfigInterface
 
     /**
      * データベース設定配列を構築
-     * @param string $dsn DSN文字列
-     * @param string|false $user ユーザー名
-     * @param string|false $password パスワード
-     * @return array データベース接続設定
      */
     public function buildDatabaseSettings(string $dsn, $user, $password): array
     {
@@ -84,7 +73,6 @@ class Config implements ConfigInterface
      */
     public function getEnv(string $key)
     {
-        // $_ENVが設定されている場合はそちらを優先
         if (isset($_ENV[$key])) {
             return $_ENV[$key];
         }
