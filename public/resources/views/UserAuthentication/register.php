@@ -20,10 +20,10 @@
         <section class="hero-content register-card">
             <h1 class="main-title">新規登録</h1>
 
-            <?php if (!empty($errorMessage)): ?>
+            <?php if (!empty($error)): ?>
                 <div class="error-messages-container">
                     <div class="error-item">
-                        <p><?php echo nl2br(htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8')); ?></p>
+                        <p><?php echo nl2br(htmlspecialchars($error, ENT_QUOTES, 'UTF-8')); ?></p>
                     </div>
                 </div>
             <?php endif; ?>

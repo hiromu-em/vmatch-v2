@@ -23,8 +23,21 @@ class AuthController
         $viewRenderer->render('register');
     }
 
-    public function registerHandle(FormValidation $formValidation): void
+    /**
+     * ユーザーの新規登録を行う
+     */
+    public function registerHandle(FormValidation $formValidation, ViewRenderer $viewRenderer): void
     {
         $email = $this->request->input('email');
+        $formValidation->validateEmail($email);
+
+        if ($formValidation->hasErrorMessages()) {
+
+            $viewRenderer->render('register', [
+                'error' => $formValidation->getErrorMessage()
+            ]);
+        }
+
+
     }
 }

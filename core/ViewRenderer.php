@@ -14,6 +14,7 @@ class ViewRenderer
     public function render(string $fileName, array $parameters = [])
     {
         $path = self::BASEPATH . $this->directoryPath . $fileName . '.php';
+        extract($parameters, EXTR_OVERWRITE);
 
         require $path;
     }
