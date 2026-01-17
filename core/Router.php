@@ -33,19 +33,15 @@ class Router
                 $controller = new $handler[0]($this->request);
                 $action = $handler[1];
 
-                if (!empty($route['parameters']['obj'])) {
+                if (!empty($route['parameters']['obj']) && \is_array($route['parameters']['obj'])) {
+                    return $controller->$action(...$route['parameters']['obj']);
 
-                    $obj = $route['parameters']['obj'];
-                    $controller->$action($obj);
-                    return;
+                } elseif (!empty($route['parameters']['obj'])) {
+                    return $controller->$action($route['parameters']['obj']);
 
-                } elseif (!empty($route['parameters'])) {
-                    $controller->$action($route['parameters']);
-                    return;
                 }
 
-                $controller->$action();
-                return;
+                return $controller->$action();
             }
         }
     }
