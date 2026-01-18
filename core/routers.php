@@ -30,7 +30,7 @@ $router->add(
 $router->add(
     'post',
     '/register',
-    [Controller\AuthController::class, 'validateEmailHandle'],
+    [Controller\AuthController::class, 'registerHandle'],
     [
         'obj' => [
             new FormValidation(),
