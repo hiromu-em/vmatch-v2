@@ -5,7 +5,8 @@
             "Vmatch\\": "app/",
             "Core\\": "core/",
             "Controller\\": "app/Controller/",
-            "Service\\": "app/Service/"
+            "Service\\": "app/Service/",
+            "Model\\": "app/Model"
         }
     },
     "require": {
