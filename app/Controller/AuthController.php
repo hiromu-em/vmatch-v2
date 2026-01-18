@@ -39,6 +39,10 @@ class AuthController
             ]);
         }
 
+        if ($userRegister->isEmailRegistered()) {
+
+        }
+
 
     }
 }
