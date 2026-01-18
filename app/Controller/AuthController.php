@@ -33,16 +33,15 @@ class AuthController
         $formValidation->validateEmail($email);
 
         if ($formValidation->hasErrorMessages()) {
-
             $viewRenderer->render('register', [
                 'error' => $formValidation->getErrorMessage()
             ]);
         }
 
-        if ($userRegister->isEmailRegistered()) {
-
+        if ($userRegister->isEmailRegistered($email)) {
+            $viewRenderer->render('register', [
+                'error' => $userRegister->getErrorMessage()
+            ]);
         }
-
-
     }
 }

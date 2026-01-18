@@ -20,8 +20,13 @@ class UserRegister
 
     }
 
-    public function isEmailRegistered()
+    public function isEmailRegistered(string $email)
     {
+        return $this->userAuthentication->existsByEmail($email, 'register');
+    }
 
+    public function getErrorMessage()
+    {
+        return $this->userAuthentication->getErrorMessage();
     }
 }
