@@ -34,7 +34,7 @@ $router->add(
         'obj' => [
             new FormValidation(),
             new ViewRenderer('views/UserAuthentication/'),
-            new UserRegister()
+            new UserRegister(generatePdo())
         ]
     ]
 );
