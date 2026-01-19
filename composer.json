@@ -6,7 +6,8 @@
             "Core\\": "core/",
             "Controller\\": "app/Controller/",
             "Service\\": "app/Service/",
-            "Model\\": "app/Model"
+            "Repository\\": "app/Repository/",
+            "Model\\": "app/Model/"
         }
     },
     "require": {
