@@ -6,6 +6,7 @@ namespace Controller;
 use Core\Request;
 use Core\ViewRenderer;
 use Service\UserAuthentication;
+use Vmatch\FormValidation;
 
 class AuthController
 {
