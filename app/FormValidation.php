@@ -125,9 +125,6 @@ class FormValidation
         } elseif (!checkdnsrr(substr(strrchr($email, "@"), 1), "MX")) {
             return ValidationResult::failure('メールアドレスの形式が間違っています。');
 
-        if (!empty($this->errorMessage) && $authAction === 'login') {
-            $this->errorMessage = "メールアドレス\nまたはパスワードが正しくありません。";
-            return;
         }
 
         return ValidationResult::success();
@@ -136,7 +133,7 @@ class FormValidation
     /**
      * パスワードの形式を検証する。 
      */
-    public function validatePassword(?string $password, string $authAction = ''): void
+    public function validatePassword(?string $password): void
     {
 
         if (empty($password)) {
@@ -158,10 +155,6 @@ class FormValidation
 
         if (!preg_match('/[@#\$%\^&\*]/', $password)) {
             $this->arrayErrorMessage[] = "記号(@ # $ % ^ & *) を1文字含めてください。";
-        }
-
-        if ($authAction === 'login' && !empty($this->arrayErrorMessage)) {
-            $this->errorMessage = "メールアドレス\nまたはパスワードが正しくありません。";
         }
     }
 
