@@ -19,8 +19,9 @@ class ValidationResult extends Result
         return new self(true);
     }
 
-    public static function failure(?array $errors, ?string $error)
+    public static function failure(string $errorMessage): ValidationResult
     {
-        return new self(false, '', $errors, $error);
+        return new self(false, $errorMessage);
+    }
     }
 }
