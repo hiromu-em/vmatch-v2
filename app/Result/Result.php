@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace Result;
+
 abstract class Result
 {
     protected bool $success;
@@ -9,10 +11,9 @@ abstract class Result
 
     protected string $error;
 
-    public function isSuccess(): bool
-    {
-        return $this->success;
-    }
+    abstract public static function success();
+
+    abstract public static function failure(string $errorMessage);
 
     public function errorMessage(): string
     {
