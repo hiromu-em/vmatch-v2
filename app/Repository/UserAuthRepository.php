@@ -35,27 +35,17 @@ class UserAuthRepository
     /**
      * メールアドレスの存在を確認する
      * @param string $email
-     * @param string $authType 認証タイプ（login/register）
      * @return bool メールアドレス存在結果
      */
-    public function existsByEmail(string $email, string $authType): bool
+    public function existsByEmail(string $email): bool
     {
-        $query = "SELECT EXISTS(SELECT 1 FROM users_vmatch WHERE email = ?) as status";
+        $query = "SELECT EXISTS(SELECT 1 FROM users_vmatch WHERE email = ?) AS emailExists";
         $statement = $this->pdo->prepare($query);
         $statement->execute([$email]);
 
-        $result = $statement->fetch();
+        $result =  $statement->fetch();
 
-        if ($result['status'] === true && $authType === 'register') {
-            $this->setErrorMessage("登録済みユーザーです。ログインしてください。");
-            return true;
-
-        } elseif ($result['status'] === false && $authType === 'login') {
-            $this->setErrorMessage("メールアドレスもしくは、パスワードが正しくありません。");
-            return false;
-        }
-
-        return $result['status'] ? true : false;
+        return $result['emailExists'];
     }
 
     /**
