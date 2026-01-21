@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Result;
 
-use Result\Result;
+use Vmatch\Result;
 
 class ValidationResult extends Result
 {
