@@ -11,7 +11,7 @@ class RegisterService
     {
     }
 
-    public function executeEmailSearch($email)
+    public function searchEmail($email)
     {
     }
 }

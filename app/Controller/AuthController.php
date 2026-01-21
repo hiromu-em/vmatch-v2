@@ -42,5 +42,7 @@ class AuthController
             );
             return;
         }
+        
+        $registerService->searchEmail($email);
     }
 }
