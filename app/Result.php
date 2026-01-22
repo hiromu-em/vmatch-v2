@@ -3,21 +3,26 @@ declare(strict_types=1);
 
 namespace Vmatch;
 
-abstract class Result
+final class Result
 {
-    protected bool $success;
-
-    protected array $errors;
-
-    protected string $error;
-
-    public function errorMessage(): string
+    public function __construct(private bool $success, private array $messages = [])
     {
-        return $this->error;
+        $this->success = $success;
+        $this->errors = $messages;
     }
 
-    public function errorMessages(): array
+    public static function success(): Result
     {
-        return $this->errors;
+        return new self(true);
+    }
+
+    public static function failure(array $errorMessages): Result
+    {
+        return new self(false, $errorMessages);
+    }
+
+    public function isSuccess(): bool
+    {
+        return $this->success;
     }
 }
