@@ -1,0 +1,13 @@
+<?php
+declare(strict_types=1);
+
+namespace Core;
+
+class Response
+{
+    public function redirect(string $uri, int $status = 302)
+    {
+        header("Location: $uri", true, $status);
+        exit;
+    }
+}
