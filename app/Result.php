@@ -23,4 +23,9 @@ final class Result
     {
         return $this->success;
     }
+
+    public function errorMessages(): array
+    {
+        return $this->messages;
+    }
 }
