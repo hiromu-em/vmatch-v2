@@ -51,6 +51,10 @@ class AuthController
         $canRegisterResult = $registerService->canRegisterByEmail($email);
         if ($canRegisterResult->isSuccess()) {
 
+            $this->session->set('errorMessage', $canRegisterResult->error());
+            $this->response->redirect('/register');
         }
+
+        
     }
 }
