@@ -26,7 +26,10 @@ class AuthController
 
     public function showRegisterForm(ViewRenderer $viewRenderer): void
     {
-        $viewRenderer->render('register');
+        $viewRenderer->render(
+            'register',
+            ['error' => $this->session->getOnce('errorMessage')]
+        );
     }
 
     /**
@@ -41,12 +44,8 @@ class AuthController
         $emailFormatResult = $formValidation->validateEmailFormat($email);
         if (!$emailFormatResult->isSuccess()) {
 
-            $viewRenderer->render(
-                'register',
-                $emailFormatResult->errorMessages()
-            );
-            
-            return;
+            $this->session->set('errorMessage', $emailFormatResult->error());
+            $this->response->redirect('/register');
         }
 
         $canRegisterResult = $registerService->canRegisterByEmail($email);
