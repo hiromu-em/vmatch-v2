@@ -39,13 +39,13 @@ class UserAuthRepository
      */
     public function existsByEmail(string $email): bool
     {
-        $query = "SELECT EXISTS(SELECT 1 FROM users_vmatch WHERE email = ?) AS emailExists";
+        $query = "SELECT EXISTS(SELECT 1 FROM users_vmatch WHERE email = ?) AS email_exists";
         $statement = $this->pdo->prepare($query);
         $statement->execute([$email]);
 
         $result =  $statement->fetch();
 
-        return $result['emailExists'];
+        return $result['email_exists'];
     }
 
     /**
