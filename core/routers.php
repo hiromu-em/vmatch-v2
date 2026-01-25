@@ -22,18 +22,21 @@ $router->add(
     [Controller\TopController::class, 'showTop'],
     ['obj' => new ViewRenderer('views/')]
 );
+
 $router->add(
     'get',
     '/login',
     [Controller\AuthController::class, 'showLoginForm'],
     ['obj' => new ViewRenderer('views/UserAuthentication/')]
 );
+
 $router->add(
     'get',
     '/register',
     [Controller\AuthController::class, 'showRegisterForm'],
     ['obj' => new ViewRenderer('views/UserAuthentication/')]
 );
+
 $router->add(
     'post',
     '/validation/email',
@@ -46,3 +49,9 @@ $router->add(
     ]
 );
 
+$router->add(
+    'get',
+    '/newPasswordSetting',
+    [Controller\AuthController::class, 'showNewPasswordSetting'],
+    ['obj' => new ViewRenderer('views/UserAuthentication/')]
+);

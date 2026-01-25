@@ -32,6 +32,14 @@ class AuthController
         );
     }
 
+    public function showNewPasswordSetting(ViewRenderer $viewRenderer)
+    {
+        $viewRenderer->render(
+            'signUp',
+            ['email' => $this->session->get('email')]
+        );
+    }
+
     /**
      * 新規登録用のメールアドレス検証を行う
      */
@@ -55,6 +63,7 @@ class AuthController
             $this->response->redirect('/register');
         }
 
-        
+        $this->session->set('email', $email);
+        $this->response->redirect('/newPasswordSetting');
     }
 }
