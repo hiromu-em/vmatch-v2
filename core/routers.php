@@ -17,28 +17,28 @@ $router = new Router(
 );
 
 $router->add(
-    'get',
+    'GET',
     '/',
     [Controller\TopController::class, 'showTop'],
     ['obj' => new ViewRenderer('views/')]
 );
 
 $router->add(
-    'get',
+    'GET',
     '/login',
     [Controller\AuthController::class, 'showLoginForm'],
     ['obj' => new ViewRenderer('views/UserAuthentication/')]
 );
 
 $router->add(
-    'get',
+    'GET',
     '/register',
     [Controller\AuthController::class, 'showRegisterForm'],
     ['obj' => new ViewRenderer('views/UserAuthentication/')]
 );
 
 $router->add(
-    'post',
+    'POST',
     '/validation/email',
     [Controller\AuthController::class, 'validateNewRegisterEmail'],
     [
@@ -50,7 +50,7 @@ $router->add(
 );
 
 $router->add(
-    'get',
+    'GET',
     '/newPasswordSetting',
     [Controller\AuthController::class, 'showNewPasswordSetting'],
     ['obj' => new ViewRenderer('views/UserAuthentication/')]
