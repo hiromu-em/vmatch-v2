@@ -22,7 +22,7 @@ class Router
     {
         $this->routes[$requestMethod][$path] = [
             'handler' => $handler,
-            'parameters' => $parameters
+            'arguments' => $parameters
         ];
     }
 
@@ -30,7 +30,7 @@ class Router
     {
         $path = $this->routes[$requestMethod][$path];
         $requestHandler = $path['handler'];
-        $parameters = $path['parameters'];
+        $arguments = $path['arguments'];
 
         $controller = new $requestHandler['class'](
             $this->request,
@@ -40,6 +40,6 @@ class Router
 
         $action = $requestHandler['method'];
 
-        $controller->$action(...$parameters['obj']);
+        $controller->$action(...$arguments['obj']);
     }
 }
