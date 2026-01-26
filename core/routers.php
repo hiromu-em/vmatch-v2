@@ -19,28 +19,28 @@ $router = new Router(
 $router->add(
     'GET',
     '/',
-    [Controller\TopController::class, 'showTop'],
+    ['class' => Controller\TopController::class, 'method' => 'showTop'],
     ['obj' => new ViewRenderer('views/')]
 );
 
 $router->add(
     'GET',
     '/login',
-    [Controller\AuthController::class, 'showLoginForm'],
+    ['class' => Controller\AuthController::class, 'method' => 'showLoginForm'],
     ['obj' => new ViewRenderer('views/UserAuthentication/')]
 );
 
 $router->add(
     'GET',
     '/register',
-    [Controller\AuthController::class, 'showRegisterForm'],
+    ['class' => Controller\AuthController::class, 'method' => 'showRegisterForm'],
     ['obj' => new ViewRenderer('views/UserAuthentication/')]
 );
 
 $router->add(
     'POST',
     '/validation/email',
-    [Controller\AuthController::class, 'validateNewRegisterEmail'],
+    ['class' => Controller\AuthController::class, 'method' => 'validateNewRegisterEmail'],
     [
         'obj' => [
             new RegisterService(new UserAuthRepository(generatePdo())),
@@ -52,6 +52,6 @@ $router->add(
 $router->add(
     'GET',
     '/newPasswordSetting',
-    [Controller\AuthController::class, 'showNewPasswordSetting'],
+    ['class' => Controller\AuthController::class, 'method' => 'showNewPasswordSetting'],
     ['obj' => new ViewRenderer('views/UserAuthentication/')]
 );
