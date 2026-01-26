@@ -34,5 +34,9 @@ function generatePdo(): PDO
     return $pdo;
 }
 
+$method = $_SERVER['REQUEST_METHOD'];
+$uri = $_SERVER['REQUEST_URI'];
 
-$router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+$path = parse_url($uri, PHP_URL_PATH);
+
+$router->dispatch($method, $path);
