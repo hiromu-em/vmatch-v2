@@ -9,7 +9,7 @@ use Core\Session;
 
 class Router
 {
-    private $routes = [];
+    private array $routes = [];
 
     public function __construct(
         private Request $request,
@@ -18,11 +18,9 @@ class Router
     ) {
     }
 
-    public function add(string $method, string $path, array $handler, ?array $parameters = null): void
+    public function add(string $requestMethod, string $path, array $handler, ?array $parameters = null): void
     {
-        $this->routes[] = [
-            'method' => strtoupper($method),
-            'path' => $path,
+        $this->routes[$requestMethod][$path] = [
             'handler' => $handler,
             'parameters' => $parameters
         ];
