@@ -20,21 +20,21 @@ $router->add(
     'GET',
     '/',
     ['class' => Controller\TopController::class, 'method' => 'showTop'],
-    ['obj' => new ViewRenderer('views/')]
+    ['obj' => [new ViewRenderer('views/')]]
 );
 
 $router->add(
     'GET',
     '/login',
     ['class' => Controller\AuthController::class, 'method' => 'showLoginForm'],
-    ['obj' => new ViewRenderer('views/UserAuthentication/')]
+    ['obj' => [new ViewRenderer('views/UserAuthentication/')]]
 );
 
 $router->add(
     'GET',
     '/register',
     ['class' => Controller\AuthController::class, 'method' => 'showRegisterForm'],
-    ['obj' => new ViewRenderer('views/UserAuthentication/')]
+    ['obj' => [new ViewRenderer('views/UserAuthentication/')]]
 );
 
 $router->add(
