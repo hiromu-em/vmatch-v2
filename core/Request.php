@@ -13,10 +13,14 @@ class Request
      * @param array|null $get
      * @param array|null $post
      */
-    public function __construct(?array $get = null, ?array $post = null)
-    {
+    public function __construct(
+        ?array $get = null,
+        ?array $post = null,
+        ?array $server = null
+    ) {
         $this->get = $get ?? $_GET;
         $this->post = $post ?? $_POST;
+        $this->server = $server ?? $_SERVER;
     }
 
     /**
