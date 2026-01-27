@@ -12,6 +12,7 @@ class Request
     /**
      * @param array|null $get
      * @param array|null $post
+     * @param array|null $server
      */
     public function __construct(
         ?array $get = null,
@@ -26,9 +27,9 @@ class Request
     /**
      * 指定されたキーの入力値を取得
      * @param string $key
-     * @return mixed|null
+     * @return string|null
      */
-    public function input(string $key)
+    public function input(string $key): string|null
     {
         if (isset($this->post[$key])) {
             return $this->post[$key];
