@@ -25,11 +25,9 @@ class Request
     }
 
     /**
-     * 指定されたキーの入力値を取得
-     * @param string $key
-     * @return string|null
+     * 指定されたキーの入力値を取得(GET, POST)
      */
-    public function input(string $key): string|null
+    public function input(string $key): string
     {
         if (isset($this->post[$key])) {
             return $this->post[$key];
@@ -39,7 +37,7 @@ class Request
             return $this->get[$key];
         }
 
-        return null;
+        return '';
     }
 
     /**
