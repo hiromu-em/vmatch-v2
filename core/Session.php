@@ -29,7 +29,7 @@ class Session
     public function get(string $key): mixed
     {
         $this->start();
-        return $_SESSION[$key];
+        return $_SESSION[$key] ?? '';
     }
 
     public function remove(string $key): void
