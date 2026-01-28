@@ -46,7 +46,7 @@ class AuthController
     public function validateNewRegisterEmail(
         RegisterService $registerService,
         FormValidation $formValidation
-    ): void {
+    ): never {
 
         $email = $this->request->input('email');
 
