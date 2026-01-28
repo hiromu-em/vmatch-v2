@@ -41,6 +41,28 @@ class AuthController
     }
 
     /**
+     * トークンを検証して成否を処理する</br>
+     * 成功→パスワード設定にリダイレクト</br>
+     * 失敗→エラーメッセージを表示
+     */
+    public function handleTokenVerification(RegisterService $registerService): never
+    {
+        $verificationToken = $this->request->input('token');
+        $token = $this->session->get('token');
+
+        $verificationResult = $registerService->verifyToen($verificationToken, $token);
+        if (!$verificationResult->isSuccess()) {
+
+            $this->session->set('errorMessage', $verificationResult->error());
+            $this->response->redirect('/register', 301);
+        }
+
+        $this->session->remove('token');
+
+        $this->response->redirect('/new-password-setting', 301);
+    }
+
+    /**
      * 新規登録用のメールアドレス検証を行う
      */
     public function validateNewRegisterEmail(

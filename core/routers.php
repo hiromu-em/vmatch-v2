@@ -49,6 +49,11 @@ $router->add(
 
 $router->add(
     'GET',
+    '/token-verification',
+    ['class' => Controller\AuthController::class, 'method' => 'handleTokenVerification'],
+    [new RegisterService(new UserAuthRepository(generatePdo()))]
+);
+
 $router->add(
     'GET',
     '/new-password-setting',
