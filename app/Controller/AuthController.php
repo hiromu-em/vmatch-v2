@@ -63,16 +63,18 @@ class AuthController
     }
 
     /**
-     * 新規登録用のメールアドレス検証を行う
+     * 新規登録用のメールアドレスを検証して成否を処理する</br>
+     * 成功: 認証トークンを生成してリダイレクト
+     * 失敗: エラーメッセージを表示
      */
-    public function validateNewRegisterEmail(
+    public function handleRegisterEmailVerification(
         RegisterService $registerService,
         FormValidation $formValidation
     ): never {
 
         $email = $this->request->fetchInputStr('email');
-
         $emailFormatResult = $formValidation->validateEmailFormat($email);
+
         if (!$emailFormatResult->isSuccess()) {
 
             $this->session->set('errorMessage', $emailFormatResult->error());
@@ -80,6 +82,7 @@ class AuthController
         }
 
         $canRegisterResult = $registerService->canRegisterByEmail($email);
+
         if (!$canRegisterResult->isSuccess()) {
 
             $this->session->set('errorMessage', $canRegisterResult->error());
@@ -89,9 +92,8 @@ class AuthController
         $this->session->set('email', $email);
 
         $token = $registerService->generateCertificationToken();
-
-        // リダイレクト先でトークンの検証を行う
         $this->session->set('token', $token);
+
         $this->response->redirect("/token-verification?token=$token");
     }
 }

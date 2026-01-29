@@ -40,7 +40,7 @@ $router->add(
 $router->add(
     'POST',
     '/verification-email',
-    ['class' => Controller\AuthController::class, 'method' => 'validateNewRegisterEmail'],
+    ['class' => Controller\AuthController::class, 'method' => 'handleRegisterEmailVerification'],
     [
         new RegisterService(new UserAuthRepository(generatePdo())),
         new FormValidation()
