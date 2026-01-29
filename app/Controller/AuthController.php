@@ -51,6 +51,7 @@ class AuthController
         $token = $this->session->get('token');
 
         $verificationResult = $registerService->verifyToen($verificationToken, $token);
+        
         if (!$verificationResult->isSuccess()) {
 
             $this->session->set('errorMessage', $verificationResult->error());
@@ -64,7 +65,7 @@ class AuthController
 
     /**
      * 新規登録用のメールアドレスを検証して成否を処理する</br>
-     * 成功: 認証トークンを生成してリダイレクト
+     * 成功: 認証トークンを生成してリダイレクト</br>
      * 失敗: エラーメッセージを表示
      */
     public function handleRegisterEmailVerification(

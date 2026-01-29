@@ -25,8 +25,8 @@ class Request
     }
 
     /**
-     * $keyに該当する値を文字列で取得する(GET, POST)</br>
-     * $keyが該当しない場合、空文字を返す
+     * keyに該当する値を文字列で取得する(GET, POST)</br>
+     * keyが該当しない場合、空文字を返す
      */
     public function fetchInputStr(string $key): string
     {
