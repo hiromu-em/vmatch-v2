@@ -31,4 +31,16 @@ class RegisterService
     {
         return bin2hex(random_bytes(12));
     }
+
+    /**
+     * 認証トークンを検証する
+     */
+    public function validateCertificationToken(string $verificationToken, string $token): Result
+    {
+        if ($verificationToken !== $token) {
+            return Result::failure("トークンの検証に失敗しました。\n再度新規登録してください");
+        }
+
+        return Result::success();
+    }
 }
