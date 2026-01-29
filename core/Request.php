@@ -25,9 +25,10 @@ class Request
     }
 
     /**
-     * 入力値を取得(GET, POST)
+     * $keyに該当する値を文字列で取得する(GET, POST)</br>
+     * $keyが該当しない場合、空文字を返す
      */
-    public function input(string $key): string
+    public function fetchInputStr(string $key): string
     {
         if (isset($this->post[$key])) {
             return $this->post[$key];

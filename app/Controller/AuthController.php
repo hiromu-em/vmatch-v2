@@ -47,7 +47,7 @@ class AuthController
      */
     public function handleTokenVerification(RegisterService $registerService): never
     {
-        $verificationToken = $this->request->input('token');
+        $verificationToken = $this->request->fetchInputStr('token');
         $token = $this->session->get('token');
 
         $verificationResult = $registerService->verifyToen($verificationToken, $token);
@@ -70,7 +70,7 @@ class AuthController
         FormValidation $formValidation
     ): never {
 
-        $email = $this->request->input('email');
+        $email = $this->request->fetchInputStr('email');
 
         $emailFormatResult = $formValidation->validateEmailFormat($email);
         if (!$emailFormatResult->isSuccess()) {
