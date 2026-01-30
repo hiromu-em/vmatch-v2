@@ -99,4 +99,17 @@ class AuthController
 
         $this->response->redirect("/token-verification?token=$token");
     }
+
+    /**
+     * 新規ユーザー登録を処理する
+     */
+    public function handleNewUserRegister(
+        RegisterService $registerService,
+        FormValidation $formValidation
+    ) {
+
+        $email = $this->session->get('email');
+        $plainPassword = $this->request->fetchInputStr('password');
+
+    }
 }
