@@ -23,7 +23,7 @@
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-        <form method="post" action="/rgister">
+        <form method="post" action="/user-rgister">
             <div class="form-group" style="text-align: start;">
                 <label for="password">パスワード</label>
             </div>
