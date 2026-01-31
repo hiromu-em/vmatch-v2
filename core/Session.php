@@ -20,7 +20,7 @@ class Session
         $this->started = true;
     }
 
-    public function set(string $key, string $value): void
+    public function setStr(string $key, string $value): void
     {
         $this->start();
         $_SESSION[$key] = $value;

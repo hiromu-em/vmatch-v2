@@ -56,7 +56,7 @@ class AuthController
 
         if (!$verificationTokenResult->isSuccess()) {
 
-            $this->session->set('errorMessage', $verificationTokenResult->error());
+            $this->session->setStr('errorMessage', $verificationTokenResult->error());
             $this->response->redirect('/register', 301);
         }
 
@@ -80,7 +80,7 @@ class AuthController
 
         if (!$emailFormatResult->isSuccess()) {
 
-            $this->session->set('errorMessage', $emailFormatResult->error());
+            $this->session->setStr('errorMessage', $emailFormatResult->error());
             $this->response->redirect('/register');
         }
 
@@ -88,14 +88,14 @@ class AuthController
 
         if (!$canRegisterEmailResult->isSuccess()) {
 
-            $this->session->set('errorMessage', $canRegisterEmailResult->error());
+            $this->session->setStr('errorMessage', $canRegisterEmailResult->error());
             $this->response->redirect('/register');
         }
 
-        $this->session->set('email', $email);
+        $this->session->setStr('email', $email);
 
         $token = $registerService->generateCertificationToken();
-        $this->session->set('token', $token);
+        $this->session->setStr('token', $token);
 
         $this->response->redirect("/token-verification?token=$token");
     }
