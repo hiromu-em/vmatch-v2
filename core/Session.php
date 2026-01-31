@@ -38,7 +38,7 @@ class Session
         unset($_SESSION[$key]);
     }
 
-    public function getOnce(string $key): string
+    public function getOnceStr(string $key): string
     {
         $this->start();
         $value = $_SESSION[$key] ?? '';

@@ -28,7 +28,7 @@ class AuthController
     {
         $viewRenderer->render(
             'register',
-            ['error' => $this->session->getOnce('errorMessage')]
+            ['error' => $this->session->getOnceStr('errorMessage')]
         );
     }
 
