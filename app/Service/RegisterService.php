@@ -33,6 +33,14 @@ class RegisterService
     }
 
     /**
+     * ハッシュ化したパスワードを生成する
+     */
+    public function generatePasswordHash(string $plainPassword): string
+    {
+        return password_hash($plainPassword, PASSWORD_DEFAULT);
+    }
+
+    /**
      * 認証トークンを検証する
      */
     public function validateCertificationToken(string $verificationToken, string $token): Result

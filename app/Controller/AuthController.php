@@ -111,8 +111,8 @@ class AuthController
         FormValidation $formValidation
     ) {
 
-        $email = $this->session->get('email');
         $plainPassword = $this->request->fetchInputStr('password');
+        $email = $this->session->get('email');
 
         $passwordFormatResult = $formValidation->validatePasswordFormat($plainPassword);
 
@@ -120,5 +120,9 @@ class AuthController
             $this->session->setArray('errorMessages', $passwordFormatResult->error());
             $this->response->redirect('/new-password-setting');
         }
+
+        $hashPassword = $registerService->generatePasswordHash($plainPassword);
+
+        
     }
 }
