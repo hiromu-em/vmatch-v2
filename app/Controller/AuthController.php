@@ -104,7 +104,7 @@ class AuthController
     }
 
     /**
-     * 新規ユーザー登録を処理する
+     * 新規ユーザー登録の処理をする
      */
     public function handleNewUserRegister(
         RegisterService $registerService,
@@ -114,5 +114,11 @@ class AuthController
         $email = $this->session->get('email');
         $plainPassword = $this->request->fetchInputStr('password');
 
+        $passwordFormatResult = $formValidation->validatePasswordFormat($plainPassword);
+
+        if (!$passwordFormatResult->isSuccess()) {
+            $this->session->setArray('errorMessages', $passwordFormatResult->error());
+            $this->response->redirect('/new-password-setting');
+        }
     }
 }
