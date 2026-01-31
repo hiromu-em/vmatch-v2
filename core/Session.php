@@ -26,6 +26,12 @@ class Session
         $_SESSION[$key] = $value;
     }
 
+    public function setArray(string $key, array $values)
+    {
+        $this->start();
+        $_SESSION[$key] = $values;
+    }
+
     public function get(string $key): string
     {
         $this->start();
@@ -45,6 +51,15 @@ class Session
         unset($_SESSION[$key]);
 
         return $value;
+    }
+
+    public function getOnceArray(string $key): array
+    {
+        $this->start();
+        $values = $_SESSION[$key] ?? [];
+        unset($_SESSION[$key]);
+
+        return $values;
     }
 
     public function clear()
