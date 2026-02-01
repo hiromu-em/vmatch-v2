@@ -34,8 +34,6 @@ class UserAuthRepository
 
     /**
      * メールアドレスの存在を確認する
-     * @param string $email
-     * @return bool メールアドレス存在結果
      */
     public function existsByEmail(string $email): bool
     {
@@ -43,15 +41,15 @@ class UserAuthRepository
         $statement = $this->pdo->prepare($query);
         $statement->execute([$email]);
 
-        $result =  $statement->fetch();
+        $result = $statement->fetch();
 
         return $result['email_exists'];
     }
 
     /**
-     * 新規ユーザーをDBに登録する
+     * 新規ユーザーをレコードに挿入する
      */
-    public function registerNewUser($email, $passwordHash): void
+    public function insertNewUser($email, $passwordHash): void
     {
         $stetement = $this->pdo->prepare("INSERT INTO users_vmatch(email, password_hash) VALUES (?, ?)");
         $stetement->execute([$email, $passwordHash]);
