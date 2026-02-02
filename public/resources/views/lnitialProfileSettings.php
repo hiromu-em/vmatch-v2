@@ -1,53 +1,10 @@
-<?php
-declare(strict_types=1);
-
-use Vmatch\FormValidation;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $formValidation = new FormValidation();
-
-    $name = trim($_POST['user-name'] ?? '');
-    $activityYoutube = isset($_POST['activity-youtube']) ? true : false;
-    $activityTwitch = isset($_POST['activity-twitch']) ? true : false;
-    $snsUrls['X(Twitter)'] = trim($_POST['twitter-url'] ?? '');
-    $snsUrls['YouTube'] = trim($_POST['youtube-url'] ?? '');
-    $snsUrls['Twitch'] = trim($_POST['twitch-url'] ?? '');
-
-    if (isset($_FILES['profilePicture']) && !empty($_FILES['profilePicture'])) {
-
-        // プロフィール画像の検証
-        $isvalidateImage = $formValidation->validateImage($_FILES['profilePicture']);
-    }
-
-    // 他のフォームフィールドの検証は、画像検証が成功した場合にのみ実行
-    if (!$isvalidateImage) {
-        $formValidation->validateUserName($name);
-        $formValidation->validateUrls($snsUrls);
-        $formValidation->validateActivity($activityYoutube, $activityTwitch);
-    }
-
-    // エラーが存在する場合、メッセージを取得
-    if ($formValidation->hasErrorMessages()) {
-        $errorMessages = $formValidation->getErrorMessages();
-    }
-
-    if (empty($errorMessages)) {
-
-    }
-
-}
-
-?>
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/InitialProfileSettings.css">
+    <link rel="stylesheet" href="/resources/css/InitialProfileSettings.css">
     <title>Vmatch-プロフィール設定-</title>
 </head>
 
