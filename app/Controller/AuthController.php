@@ -108,7 +108,8 @@ class AuthController
      */
     public function handleNewUserRegister(
         RegisterService $registerService,
-        FormValidation $formValidation
+        FormValidation $formValidation,
+        ViewRenderer $viewRenderer
     ) {
 
         $plainPassword = $this->request->fetchInputStr('password');
