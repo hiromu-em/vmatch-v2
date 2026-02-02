@@ -67,6 +67,7 @@ $router->add(
     ['class' => Controller\AuthController::class, 'method' => 'handleNewUserRegister'],
     [
         new RegisterService(new UserAuthRepository(generatePdo())),
-        new FormValidation()
+        new FormValidation(),
+        new ViewRenderer('views/Error/')
     ]
 );
