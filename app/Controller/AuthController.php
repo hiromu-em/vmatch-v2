@@ -47,6 +47,9 @@ class AuthController
                 ]
             );
         }
+
+        // トークンを検証していない場合、top画面へリダイレクト
+        $this->response->redirect('/', 301);
     }
 
     /**
