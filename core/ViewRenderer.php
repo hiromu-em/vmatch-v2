@@ -11,11 +11,12 @@ class ViewRenderer
     {
     }
 
-    public function render(string $fileName, array $parameters = [])
+    public function render(string $fileName, array $parameters = []): never
     {
         $path = self::BASEPATH . $this->directoryPath . $fileName . '.php';
         extract($parameters, EXTR_SKIP);
 
         require $path;
+        exit;
     }
 }
