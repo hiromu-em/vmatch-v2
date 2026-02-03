@@ -9,6 +9,7 @@ use Core\ViewRenderer;
 use Core\Session;
 use Service\RegisterService;
 use Vmatch\FormValidation;
+use Vmatch\Exception\DatabaseException;
 
 class AuthController
 {
@@ -124,6 +125,12 @@ class AuthController
 
         $hashPassword = $registerService->generatePasswordHash($plainPassword);
 
-        
+        try {
+            $registerService->registerNewUser($email, $hashPassword);
+
+        } catch (DatabaseException $e) {
+            http_response_code(500);
+            $viewRenderer->render('systemError');
+        }
     }
 }
