@@ -33,15 +33,20 @@ class AuthController
         );
     }
 
-    public function showNewPasswordSetting(ViewRenderer $viewRenderer): void
+    public function showNewPasswordSetting(ViewRenderer $viewRenderer): never
     {
-        $viewRenderer->render(
-            'signUp',
-            [
-                'email' => $this->session->get('email'),
-                'errors' => $this->session->getOnceArray('errorMessages')
-            ]
-        );
+        $tokenEnabled = $this->session->getArray('handleToken');
+
+        if ($tokenEnabled['consumed'] === true) {
+
+            $viewRenderer->render(
+                'signUp',
+                [
+                    'email' => $this->session->getStr('email'),
+                    'errors' => $this->session->getOnceArray('errorMessages')
+                ]
+            );
+        }
     }
 
     /**
@@ -52,10 +57,11 @@ class AuthController
     public function handleTokenVerification(RegisterService $registerService): never
     {
         $verificationToken = $this->request->fetchInputStr('token');
+        $handleToken = $this->session->getArray('handleToken');
 
         $verificationTokenResult = $registerService->validateCertificationToken(
             $verificationToken,
-            $this->session->get('token')
+            $handleToken['token']
         );
 
         if (!$verificationTokenResult->isSuccess()) {
@@ -64,7 +70,8 @@ class AuthController
             $this->response->redirect('/register', 301);
         }
 
-        $this->session->remove('token');
+        $handleToken['consumed'] = true;
+        $this->session->setArray('handleToken', $handleToken);
 
         $this->response->redirect('/new-password-setting', 301);
     }
@@ -99,7 +106,7 @@ class AuthController
         $this->session->setStr('email', $email);
 
         $token = $registerService->generateCertificationToken();
-        $this->session->setStr('token', $token);
+        $this->session->setArray('handleToken', ['token' => $token, 'consumed' => false]);
 
         $this->response->redirect("/token-verification?token=$token");
     }
