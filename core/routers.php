@@ -20,7 +20,7 @@ $router->add(
     'GET',
     '/',
     ['class' => Controller\TopController::class, 'method' => 'showTop'],
-    [new ViewRenderer('views/')]
+    [new ViewRenderer()]
 );
 
 $router->add(
@@ -76,5 +76,5 @@ $router->add(
     'GET',
     '/init-profile-settng',
     ['class' => Controller\UserSettingController::class, 'method' => 'showInitProfileSettng'],
-    [new ViewRenderer('views/')]
+    [new ViewRenderer()]
 );

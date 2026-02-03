@@ -7,7 +7,7 @@ class ViewRenderer
 {
     private const string BASEPATH = __DIR__ . '/../public/resources/';
 
-    public function __construct(private string $directoryPath = "")
+    public function __construct(private string $directoryPath = "views/")
     {
     }
 
