@@ -32,7 +32,7 @@ class Session
         $_SESSION[$key] = $values;
     }
 
-    public function get(string $key): string
+    public function getStr(string $key): string
     {
         $this->start();
         return $_SESSION[$key] ?? '';
