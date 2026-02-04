@@ -64,7 +64,7 @@ class AuthController
 
         $verificationTokenResult = $registerService->validateCertificationToken(
             $verificationToken,
-            $handleToken['token']
+            $handleToken['token'] ?? ''
         );
 
         if (!$verificationTokenResult->isSuccess()) {
