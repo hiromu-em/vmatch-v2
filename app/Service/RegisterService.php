@@ -55,7 +55,9 @@ class RegisterService
     }
 
     /**
-     * 認証トークンを検証する
+     * Requestから受け取った認証トークンを検証する
+     * @param string $verificationToken GETパラメーターから受け取った認証トークン
+     * @param string $token Sessionに保存したトークン 
      */
     public function validateCertificationToken(string $verificationToken, string $token): Result
     {
