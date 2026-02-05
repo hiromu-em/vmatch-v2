@@ -70,8 +70,7 @@ class AuthController
             $this->response->redirect('/register', 301);
         }
 
-        $handleToken['consumed'] = true;
-        $this->session->setArray('handleToken', $handleToken);
+        $this->session->setArray('token_status', ['consumed' => true]);
 
         $this->response->redirect('/new-password-setting', 301);
     }
