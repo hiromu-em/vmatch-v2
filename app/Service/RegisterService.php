@@ -61,7 +61,7 @@ class RegisterService
      */
     public function validateCertificationToken(string $verificationToken, string $token): Result
     {
-        if ($verificationToken !== $token || empty($verificationToken) || empty($token)) {
+        if ($verificationToken !== $token) {
             return Result::failure("トークンの検証に失敗しました。\n再度新規登録をしてください");
         }
 

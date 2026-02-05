@@ -26,7 +26,7 @@ class Session
         $_SESSION[$key] = $value;
     }
 
-    public function setArray(string $key, array $values)
+    public function setArray(string $key, array $values): void
     {
         $this->start();
         $_SESSION[$key] = $values;
@@ -42,12 +42,6 @@ class Session
     {
         $this->start();
         return $_SESSION[$key] ?? [];
-    }
-
-    public function remove(string $key): void
-    {
-        $this->start();
-        unset($_SESSION[$key]);
     }
 
     public function getOnceStr(string $key): string
@@ -68,7 +62,19 @@ class Session
         return $values;
     }
 
-    public function clear()
+    public function has(string $key): bool
+    {
+        $this->start();
+        return $_SESSION[$key] ?? false;
+    }
+
+    public function remove(string $key): void
+    {
+        $this->start();
+        unset($_SESSION[$key]);
+    }
+
+    public function clear(): void
     {
         $this->start();
         $_SESSION = [];

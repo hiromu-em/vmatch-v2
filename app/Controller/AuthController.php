@@ -62,6 +62,11 @@ class AuthController
      */
     public function handleTokenVerification(RegisterService $registerService): never
     {
+        // SESSIONに存在しない場合はTOP画面にリダイレクト
+        if (!$this->session->has('token')) {
+            $this->response->redirect('/', 301);
+        }
+
         $verificationTokenResult = $registerService->validateCertificationToken(
             $this->request->fetchInputStr('token'),
             $this->session->getStr('token')
