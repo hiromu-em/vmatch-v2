@@ -35,7 +35,7 @@ class AuthController
 
     public function showNewPasswordSetting(ViewRenderer $viewRenderer): never
     {
-        $tokenEnabled = $this->session->getArray('handleToken');
+        $tokenStatus = $this->session->getArray('token_status');
 
         if ($tokenEnabled['consumed'] === true) {
 
