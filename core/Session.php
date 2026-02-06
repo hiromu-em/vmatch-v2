@@ -14,7 +14,7 @@ class Session
         }
 
         if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
+            session_start(['use_strict_mode' => 1]);
         }
 
         $this->started = true;
