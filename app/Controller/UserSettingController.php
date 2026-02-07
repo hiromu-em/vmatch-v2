@@ -19,6 +19,10 @@ class UserSettingController
 
     public function showInitProfileSetting(ViewRenderer $viewRenderer)
     {
+        if (!$this->session->has('user_id')) {
+            $this->response->redirect('/', 301);
+        }
+
         $viewRenderer->render(
             'InitProfileSettings'
         );
