@@ -152,6 +152,6 @@ class AuthController
 
         $this->session->setStr('user_id', $userId);
 
-        $this->response->redirect('/init-profile-settng');
+        $this->response->redirect('/init-profile-setting');
     }
 }

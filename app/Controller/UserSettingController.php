@@ -17,7 +17,7 @@ class UserSettingController
     ) {
     }
 
-    public function showInitProfileSettng(ViewRenderer $viewRenderer)
+    public function showInitProfileSetting(ViewRenderer $viewRenderer)
     {
         $viewRenderer->render(
             'InitProfileSettings'

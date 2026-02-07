@@ -74,7 +74,7 @@ $router->add(
 
 $router->add(
     'GET',
-    '/init-profile-settng',
-    ['class' => Controller\UserSettingController::class, 'method' => 'showInitProfileSettng'],
+    '/init-profile-setting',
+    ['class' => Controller\UserSettingController::class, 'method' => 'showInitProfileSetting'],
     [new ViewRenderer()]
 );
