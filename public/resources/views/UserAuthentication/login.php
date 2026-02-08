@@ -37,7 +37,7 @@
             <div class="login-form-group">
                 <label for="password" class="login-form-label">パスワード</label>
                 <input type="password" id="password" name="password" class="login-form-input" autocomplete="off"
-                    required placeholder="パスワードを入力">
+                    placeholder="パスワードを入力">
             </div>
             <button type="submit" class="login-submit-button">ログイン</button>
         </form>
