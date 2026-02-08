@@ -26,21 +26,21 @@ $router->add(
 $router->add(
     'GET',
     '/login',
-    ['class' => Controller\AuthController::class, 'method' => 'showLoginForm'],
+    ['class' => Controller\UserAuthController::class, 'method' => 'showLoginForm'],
     [new ViewRenderer('views/UserAuthentication/')]
 );
 
 $router->add(
     'GET',
     '/register',
-    ['class' => Controller\AuthController::class, 'method' => 'showRegisterForm'],
+    ['class' => Controller\UserAuthController::class, 'method' => 'showRegisterForm'],
     [new ViewRenderer('views/UserAuthentication/')]
 );
 
 $router->add(
     'POST',
     '/verification-email',
-    ['class' => Controller\AuthController::class, 'method' => 'handleRegisterEmailVerification'],
+    ['class' => Controller\UserAuthController::class, 'method' => 'handleRegisterEmailVerification'],
     [
         new UserRegisterService(new UserAuthRepository(generatePdo())),
         new FormValidation()
@@ -50,21 +50,21 @@ $router->add(
 $router->add(
     'GET',
     '/token-verification',
-    ['class' => Controller\AuthController::class, 'method' => 'handleTokenVerification'],
+    ['class' => Controller\UserAuthController::class, 'method' => 'handleTokenVerification'],
     [new UserRegisterService(new UserAuthRepository(generatePdo()))]
 );
 
 $router->add(
     'GET',
     '/new-password-setting',
-    ['class' => Controller\AuthController::class, 'method' => 'showNewPasswordSetting'],
+    ['class' => Controller\UserAuthController::class, 'method' => 'showNewPasswordSetting'],
     [new ViewRenderer('views/UserAuthentication/')]
 );
 
 $router->add(
     'POST',
     '/user-rgister',
-    ['class' => Controller\AuthController::class, 'method' => 'handleNewUserRegister'],
+    ['class' => Controller\UserAuthController::class, 'method' => 'handleNewUserRegister'],
     [
         new UserRegisterService(new UserAuthRepository(generatePdo())),
         new FormValidation(),

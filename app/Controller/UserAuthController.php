@@ -11,7 +11,7 @@ use Service\UserRegisterService;
 use Vmatch\FormValidation;
 use Vmatch\Exception\DatabaseException;
 
-class AuthController
+class UserAuthController
 {
     public function __construct(
         private Request $request,
@@ -154,4 +154,6 @@ class AuthController
 
         $this->response->redirect('/init-profile-setting');
     }
+
+    // TODO: login用のメソッドを後日追加する
 }
