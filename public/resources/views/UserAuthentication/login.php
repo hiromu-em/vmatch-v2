@@ -21,10 +21,10 @@
         <div class="login-hero-content">
             <h1 class="login-main-title">ログイン</h1>
         </div>
-        <?php if (!empty($errorMessage)): ?>
+        <?php if (!empty($error)): ?>
             <div class="error-messages-container">
                 <div class="error-item">
-                    <p><?php echo nl2br(htmlspecialchars($errorMessage)); ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($error)); ?></p>
                 </div>
             </div>
         <?php endif; ?>

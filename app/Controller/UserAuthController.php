@@ -22,7 +22,10 @@ class UserAuthController
 
     public function showLoginForm(ViewRenderer $viewRenderer): void
     {
-        $viewRenderer->render('login');
+        $viewRenderer->render(
+            'login',
+            ['error' => $this->session->getOnceStr('errorMessage')]
+        );
     }
 
     public function showRegisterForm(ViewRenderer $viewRenderer): void
