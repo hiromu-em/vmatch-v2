@@ -155,5 +155,21 @@ class UserAuthController
         $this->response->redirect('/init-profile-setting');
     }
 
-    // TODO: login用のメソッドを後日追加する
+    /**
+     * ユーザーのログインを処理する
+     */
+    public function handleUserLogin(FormValidation $formValidation)
+    {
+        $email = $this->request->fetchInputStr('email');
+        $plainPassword = $this->request->fetchInputStr('password');
+
+        $emailFormatResult = $formValidation->validateEmailFormat($email);
+        $passwordFormatResult = $formValidation->validatePasswordFormat($plainPassword);
+
+        if (!$emailFormatResult->isSuccess() && !$passwordFormatResult->isSuccess()) {
+            $this->session->setStr('errorMessage', "メールアドレスもしくは、\nパスワードが正しくありません。");
+            $this->response->redirect('/login');
+        }
+
+    }
 }

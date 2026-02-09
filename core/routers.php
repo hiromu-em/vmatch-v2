@@ -78,3 +78,10 @@ $router->add(
     ['class' => Controller\UserSettingController::class, 'method' => 'showInitProfileSetting'],
     [new ViewRenderer()]
 );
+
+$router->add(
+    'POST',
+    '/user-login',
+    ['class' => Controller\UserAuthController::class, 'method' => 'handleUserLogin'],
+    [new FormValidation()]
+);
