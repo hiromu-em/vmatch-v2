@@ -12,15 +12,6 @@ class UserAuthRepository
     }
 
     /**
-     * メールアドレスをDBに登録する
-     */
-    public function registerEmail(string $newEmail): void
-    {
-        $statement = $this->pdo->prepare("INSERT INTO users_vmatch(email) VALUES (?)");
-        $statement->execute([$newEmail]);
-    }
-
-    /**
      * ユーザーIDを取得する
      */
     public function getSearchUserId(string $newEmail): string
@@ -47,7 +38,7 @@ class UserAuthRepository
     }
 
     /**
-     * 新規ユーザーIDを取得する
+     * 新規ユーザーをレコードに追加してIDを取得する
      */
     public function fetchNewUserId($email, $passwordHash): string
     {
