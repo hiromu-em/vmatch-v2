@@ -12,15 +12,15 @@ class UserAuthRepository
     }
 
     /**
-     * ユーザーIDを取得する
+     * ユーザーレコードを取得する
      */
-    public function getSearchUserId(string $newEmail): string
+    public function findUserRecord(string $email): array
     {
-        $statement = $this->pdo->prepare("SELECT id FROM users_vmatch WHERE email = ?");
-        $statement->execute([$newEmail]);
+        $statement = $this->pdo->prepare("SELECT * FROM users_vmatch WHERE email = ?");
+        $statement->execute([$email]);
         $result = $statement->fetch();
 
-        return $result['id'];
+        return $result ?: [];
     }
 
     /**
