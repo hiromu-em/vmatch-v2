@@ -179,15 +179,15 @@ class UserAuthController
         }
 
         try {
-            $executeUserLogin = $loginService->executeUserLogin($email, $plainPassword);
+            $executeUserLoginResult = $loginService->executeUserLogin($email, $plainPassword);
 
         } catch (DatabaseException $e) {
             http_response_code(500);
             $viewRenderer->render('systemError');
         }
 
-        if (!$executeUserLogin->isSuccess()) {
-            $this->session->setStr('errorMessage', $executeUserLogin->error());
+        if (!$executeUserLoginResult->isSuccess()) {
+            $this->session->setStr('errorMessage', $executeUserLoginResult->error());
             $this->response->redirect('/login');
         }
     }
