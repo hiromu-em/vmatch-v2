@@ -84,5 +84,9 @@ $router->add(
     'POST',
     '/user-login',
     ['class' => Controller\UserAuthController::class, 'method' => 'handleUserLogin'],
-    [new FormValidation(), new UserLoginService(new UserAuthRepository(generatePdo()))]
+    [
+        new FormValidation(),
+        new UserLoginService(new UserAuthRepository(generatePdo())),
+        new ViewRenderer('views/Error/')
+    ]
 );

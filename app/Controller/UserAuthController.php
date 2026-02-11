@@ -164,7 +164,8 @@ class UserAuthController
      */
     public function handleUserLogin(
         FormValidation $formValidation,
-        UserLoginService $loginService
+        UserLoginService $loginService,
+        ViewRenderer $viewRenderer
     ): void {
         $email = $this->request->fetchInputStr('email');
         $plainPassword = $this->request->fetchInputStr('password');
