@@ -9,7 +9,7 @@ use Service\GoogleOauthService;
 
 class OauthController
 {
-    public function handleGoogleOAuth(Client $client, GoogleOauthService $googleOauthService)
+    public function handleGoogleOAuth(Client $initClient, GoogleOauthService $googleOauthService)
     {
     }
 }
