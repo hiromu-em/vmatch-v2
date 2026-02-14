@@ -5,9 +5,11 @@ namespace Controller;
 
 use Google\Client;
 
+use Service\GoogleOauthService;
+
 class OauthController
 {
-    public function handleGoogleOAuth(Client $client)
+    public function handleGoogleOAuth(Client $client, GoogleOauthService $googleOauthService)
     {
     }
 }
