@@ -20,6 +20,9 @@ $router = new Router(
     new Session()
 );
 
+// 環境変数の読み込み
+loadenv();
+
 $router->add(
     'GET',
     '/',

@@ -18,8 +18,6 @@ function loadenv()
 
 function generatePdo(): PDO
 {
-    loadenv();
-
     $host = $_ENV['PG_LOCAL_HOST'];
     $database = $_ENV['PG_LOCAL_DATABASE'];
 
