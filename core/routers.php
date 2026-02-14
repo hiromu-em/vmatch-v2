@@ -11,6 +11,8 @@ use Service\UserRegisterService;
 use Service\UserLoginService;
 use Repository\UserAuthRepository;
 
+use Google\Client;
+
 $router = new Router(
     new Request($_GET, $_POST, $_SERVER),
     new Response(),
@@ -89,4 +91,11 @@ $router->add(
         new UserLoginService(new UserAuthRepository(generatePdo())),
         new ViewRenderer('views/Error/')
     ]
+);
+
+$router->add(
+    'GET',
+    '/google-oauth',
+    ['class' => Controller\OauthController::class, 'method' => 'handleGoogleOAuth'],
+    [new Client()]
 );
