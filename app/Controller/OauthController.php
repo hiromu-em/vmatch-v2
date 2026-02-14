@@ -11,5 +11,7 @@ class OauthController
 {
     public function handleGoogleOAuth(Client $initClient, GoogleOauthService $googleOauthService)
     {
+        $cilent = $googleOauthService->setClientConfig($initClient);
+        
     }
 }
