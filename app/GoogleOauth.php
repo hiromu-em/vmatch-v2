@@ -5,7 +5,7 @@ namespace Vmatch;
 
 use Google\Client;
 
-class GoogleOAuthClient
+class GoogleOAuth
 {
     public function __construct(private Client $client)
     {
