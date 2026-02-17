@@ -3,15 +3,22 @@ declare(strict_types=1);
 
 namespace Controller;
 
-use Google\Client;
-
-use Service\GoogleOauthService;
+use Core\Request;
+use Core\Response;
+use Core\Session;
+use Vmatch\GoogleOAuth;
 
 class OauthController
 {
-    public function handleGoogleOAuth(Client $initClient, GoogleOauthService $googleOauthService)
+    public function __construct(
+        private Request $request,
+        private Response $response,
+        private Session $session
+    ) {
+
+    }
+
+    public function handleGoogleOAuth(GoogleOAuth $googleOAuth)
     {
-        $cilent = $googleOauthService->setClientConfig($initClient);
-        
     }
 }
