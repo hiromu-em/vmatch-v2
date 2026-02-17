@@ -8,10 +8,9 @@ use Core\ViewRenderer;
 use Core\Session;
 use Service\UserRegisterService;
 use Service\UserLoginService;
-use Service\GoogleOauthService;
 use Repository\UserAuthRepository;
 use Vmatch\FormValidation;
-use Vmatch\GoogleOAuth;
+use Vmatch\GoogleOauth;
 
 use Google\Client;
 
@@ -101,6 +100,6 @@ $router->add(
 $router->add(
     'GET',
     '/google-oauth',
-    ['class' => Controller\OauthController::class, 'method' => 'handleGoogleOAuth'],
-    [new GoogleOAuth(new Client())]
+    ['class' => Controller\OauthController::class, 'method' => 'handleGoogleOauth'],
+    [ new GoogleOauth(new Client())]
 );

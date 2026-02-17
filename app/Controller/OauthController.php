@@ -6,7 +6,7 @@ namespace Controller;
 use Core\Request;
 use Core\Response;
 use Core\Session;
-use Vmatch\GoogleOAuth;
+use Vmatch\GoogleOauth;
 
 class OauthController
 {
@@ -18,7 +18,7 @@ class OauthController
 
     }
 
-    public function handleGoogleOAuth(GoogleOAuth $googleOAuth)
+    public function handleGoogleOauth(GoogleOauth $googleOauth)
     {
     }
 }
