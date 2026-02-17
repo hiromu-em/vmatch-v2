@@ -18,7 +18,7 @@ class OauthController
 
     }
 
-    public function handleGoogleOauth(GoogleOauth $googleOauth)
+    public function handleGoogleOauth(GoogleOauth $googleOauth, array $clientConfig)
     {
     }
 }

@@ -102,9 +102,7 @@ $router->add(
     '/google-oauth',
     ['class' => Controller\OauthController::class, 'method' => 'handleGoogleOauth'],
     [
-        new GoogleOauth(new Client(), [
-            'client_id' => $_ENV['CLIENTID'],
-            'client_secret' => $_ENV['CLIENTSECRET']
-        ])
+        new GoogleOauth(new Client()),
+        ['client_id' => $_ENV['CLIENTID'], 'client_secret' => $_ENV['CLIENTSECRET']]
     ]
 );
