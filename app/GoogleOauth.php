@@ -14,11 +14,13 @@ class GoogleOauth
     public function createClient(array $clientConfig): Client
     {
         $this->client->setAuthConfig($clientConfig);
-        $this->client->setScopes('email');
 
+        $this->client->setScopes('email');
         $this->client->setAccessType('offline');
+
         $this->client->setIncludeGrantedScopes(true);
         $this->client->setPrompt('select_account');
+        $this->client->setState(bin2hex(random_bytes(128 / 8)));
 
         $this->client->setRedirectUri('/google-oauth-callback');
 
@@ -40,22 +42,6 @@ class GoogleOauth
     public function createAuthUrl(): string
     {
         return $this->client->createAuthUrl();
-    }
-
-    /**
-     * Clientにstateを設定
-     */
-    public function setClientState(string $state): void
-    {
-        $this->client->setState($state);
-    }
-
-    /**
-     * コード検証者の取得
-     */
-    public function generateCodeVerifier(): string
-    {
-        return $this->client->getOAuth2Service()->generateCodeVerifier();
     }
 
     /**
