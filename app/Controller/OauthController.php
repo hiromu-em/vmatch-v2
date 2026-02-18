@@ -21,5 +21,8 @@ class OauthController
     public function handleGoogleOauth(GoogleOauth $googleOauth, array $clientConfig)
     {
         $client = $googleOauth->createClient($clientConfig);
+        
+        $this->session->setStr('google_oauth_state', $client->getConfig('state'));
+        $this->session->setStr('google_code_verifier', $client->getOAuth2Service()->generateCodeVerifier());
     }
 }
