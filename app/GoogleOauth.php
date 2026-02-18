@@ -11,9 +11,9 @@ class GoogleOauth
     {
     }
 
-    public function createClient(array $clientConfig): Client
+    public function changeClientSetting(array $config): Client
     {
-        $this->client->setAuthConfig($clientConfig);
+        $this->client->setAuthConfig($config);
 
         $this->client->setScopes('email');
         $this->client->setAccessType('offline');
