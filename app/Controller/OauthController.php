@@ -34,6 +34,8 @@ class OauthController
 
             $this->session->setStr('google_oauth_state', $state);
             $this->session->setStr('google_code_verifier', $client->getOAuth2Service()->generateCodeVerifier());
+
+            $this->response->redirect($client->createAuthUrl(), 301);
         }
 
     }
