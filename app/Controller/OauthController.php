@@ -22,10 +22,14 @@ class OauthController
     {
         $client = $googleOauth->changeClientSetting($clientConfig);
 
+        $googleAccessToken = $this->session->getStr('google_access_token');
+        if (!isset($googleAccessToken) && empty($googleAccessToken)) {
+
             $state = bin2hex(random_bytes(128 / 8));
             $client->setState($state);
 
             $this->session->setStr('google_oauth_state', $state);
             $this->session->setStr('google_code_verifier', $client->getOAuth2Service()->generateCodeVerifier());
+        }
     }
 }
