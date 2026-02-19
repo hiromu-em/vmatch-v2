@@ -22,7 +22,10 @@ class OauthController
     {
         $client = $googleOauth->changeClientSetting($clientConfig);
 
-        $this->session->setStr('google_oauth_state', $client->getConfig('state'));
-        $this->session->setStr('google_code_verifier', $client->getOAuth2Service()->generateCodeVerifier());
+            $state = bin2hex(random_bytes(128 / 8));
+            $client->setState($state);
+
+            $this->session->setStr('google_oauth_state', $state);
+            $this->session->setStr('google_code_verifier', $client->getOAuth2Service()->generateCodeVerifier());
     }
 }
