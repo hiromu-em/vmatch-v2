@@ -21,7 +21,7 @@ class GoogleOauth
         $this->client->setIncludeGrantedScopes(true);
         $this->client->setPrompt('select_account');
 
-        $this->client->setRedirectUri('http://localhost/google-oauth-callback');
+        $this->client->setRedirectUri('http://localhost/google-oauth-code');
 
         return $this->client;
     }
