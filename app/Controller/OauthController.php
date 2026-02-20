@@ -19,7 +19,7 @@ class OauthController
     }
     /**
      * 
-     * @param GoogleOauth $googleOauth GoogleOauthに関わる処理をまとめたクラス
+     * @param GoogleOauth $googleOauth GoogleOauthに関わる処理をまとめたオブジェクト
      * @param array $clientConfig クライアントIDとクライアントシークレットを含めた配列
      */
     public function handleGoogleOauth(GoogleOauth $googleOauth, array $clientConfig)
@@ -42,5 +42,8 @@ class OauthController
 
     public function handleGoogleOauthCode(GoogleOauth $googleOauth)
     {
+        if ($this->request->isGet('error')) {
+            $this->response->redirect('/', 301);
+        }
     }
 }
