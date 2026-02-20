@@ -8,7 +8,7 @@ class Request
     private array $get;
 
     private array $post;
-    
+
     /**
      * サーバー情報および実行時の環境情報
      */
@@ -39,5 +39,10 @@ class Request
         }
 
         return '';
+    }
+
+    public function isGet(string $key): bool
+    {
+        return isset($this->get[$key]);
     }
 }
