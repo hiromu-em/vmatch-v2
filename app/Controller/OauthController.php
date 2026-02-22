@@ -47,12 +47,13 @@ class OauthController
         }
 
         $code = $this->request->fetchInputStr('code');
+        $googleCodeVerifier = $this->session->getStr('google_code_verifier');
+
         $state = $this->request->fetchInputStr('state');
 
-        if ($this->request->isGet('code') && !empty($code)) {
+        if ($this->request->isGet('code')) {
 
             if ($state !== $this->session->getStr('google_oauth_state')) {
-
                 $this->session->clear();
                 $this->response->redirect('/', 301);
             }
