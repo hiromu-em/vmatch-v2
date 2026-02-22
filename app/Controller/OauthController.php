@@ -26,7 +26,7 @@ class OauthController
     {
         $client = $googleOauth->changeClientSetting($clientConfig);
 
-        $googleAccessToken = $this->session->getStr('google_access_token');
+        $googleAccessToken = $this->session->getArray('google_access_token');
         if (!isset($googleAccessToken) || empty($googleAccessToken)) {
 
             $state = bin2hex(random_bytes(128 / 8));
