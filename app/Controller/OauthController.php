@@ -6,6 +6,7 @@ namespace Controller;
 use Core\Request;
 use Core\Response;
 use Core\Session;
+use Core\ViewRenderer;
 use Vmatch\GoogleOauth;
 
 class OauthController
@@ -22,8 +23,11 @@ class OauthController
      * @param GoogleOauth $googleOauth GoogleOauthに関わる処理をまとめたオブジェクト
      * @param array $clientConfig クライアントIDとクライアントシークレットを含めた配列
      */
-    public function handleGoogleOauth(GoogleOauth $googleOauth, array $clientConfig)
-    {
+    public function handleGoogleOauth(
+        GoogleOauth $googleOauth,
+        array $clientConfig,
+        ViewRenderer $viewRenderer
+    ) {
         $client = $googleOauth->changeClientSetting($clientConfig);
 
         $googleAccessToken = $this->session->getArray('google_access_token');
@@ -38,6 +42,13 @@ class OauthController
             $this->response->redirect($client->createAuthUrl(), 301);
         }
 
+        try {
+            $client->setAccessToken($googleAccessToken);
+        } catch (\InvalidArgumentException $e) {
+            $viewRenderer->render('oauthError');
+        }
+
+        
     }
 
     public function handleGoogleOauthCode(GoogleOauth $googleOauth): never
