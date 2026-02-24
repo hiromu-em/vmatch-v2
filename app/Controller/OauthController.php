@@ -19,8 +19,6 @@ class OauthController
 
     }
     /**
-     * 
-     * @param GoogleOauth $googleOauth GoogleOauthに関わる処理をまとめたオブジェクト
      * @param array $clientConfig クライアントIDとクライアントシークレットを含めた配列
      */
     public function handleGoogleOauth(
@@ -48,7 +46,7 @@ class OauthController
             $viewRenderer->render('oauthError');
         }
 
-        
+        $tokenData = $client->verifyIdToken();
     }
 
     public function handleGoogleOauthCode(GoogleOauth $googleOauth): never
