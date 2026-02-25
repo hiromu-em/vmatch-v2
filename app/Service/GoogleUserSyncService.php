@@ -5,5 +5,8 @@ namespace Service;
 
 class GoogleUserSyncService
 {
+    public function syncUserData(array $tokenData)
+    {
+    }
 
 }

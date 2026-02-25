@@ -8,6 +8,7 @@ use Core\ViewRenderer;
 use Core\Session;
 use Service\UserRegisterService;
 use Service\UserLoginService;
+use Service\GoogleUserSyncService;
 use Repository\UserAuthRepository;
 use Vmatch\FormValidation;
 use Vmatch\GoogleOauth;
@@ -104,7 +105,8 @@ $router->add(
     [
         new GoogleOauth(new Client()),
         ['client_id' => $_ENV['CLIENTID'], 'client_secret' => $_ENV['CLIENTSECRET']],
-        new ViewRenderer('views/Error/')
+        new ViewRenderer('views/Error/'),
+        new GoogleUserSyncService()
     ]
 );
 

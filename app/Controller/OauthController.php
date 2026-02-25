@@ -8,6 +8,7 @@ use Core\Response;
 use Core\Session;
 use Core\ViewRenderer;
 use Vmatch\GoogleOauth;
+use Service\GoogleUserSyncService;
 
 class OauthController
 {
@@ -24,7 +25,8 @@ class OauthController
     public function handleGoogleOauth(
         GoogleOauth $googleOauth,
         array $clientConfig,
-        ViewRenderer $viewRenderer
+        ViewRenderer $viewRenderer,
+        GoogleUserSyncService $googleUserSyncService
     ) {
         $client = $googleOauth->changeClientSetting($clientConfig);
 
@@ -47,6 +49,7 @@ class OauthController
         }
 
         $tokenData = $client->verifyIdToken();
+        $googleUserSyncService->syncUserData($tokenData);
     }
 
     public function handleGoogleOauthCode(GoogleOauth $googleOauth): never
