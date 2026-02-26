@@ -8,7 +8,8 @@
             "Service\\": "app/Service/",
             "Repository\\": "app/Repository/",
             "Model\\": "app/Model/",
-            "Result\\": "app/Result"
+            "Result\\": "app/Result",
+            "Entity\\": "app/Entity/"
         }
     },
     "require": {
