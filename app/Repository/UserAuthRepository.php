@@ -38,7 +38,7 @@ class UserAuthRepository
     /**
      * 新規ユーザーをレコードに追加してIDを取得する
      */
-    public function fetchNewUserId($email, $passwordHash): string
+    public function fetchNewUserId($email, $passwordHash = null): string
     {
         $stetement = $this->pdo->prepare(
             "INSERT INTO users_vmatch(email, password_hash) VALUES (?, ?) RETURNING id"
