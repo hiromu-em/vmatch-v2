@@ -75,7 +75,7 @@ class UserAuthRepository
      */
     public function providerIdExists(string $providerId): bool
     {
-        $query = "SELECT EXISTS(SELECT 1 FROM users_vmatch_providers WHERE provider_user_id = ?) as status";
+        $query = "SELECT EXISTS(SELECT 1 FROM users_vmatch_providers WHERE provider_id = ?) as status";
         $statement = $this->pdo->prepare($query);
         $statement->execute([$providerId]);
         $result = $statement->fetch();
