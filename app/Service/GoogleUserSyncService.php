@@ -12,8 +12,10 @@ class GoogleUserSyncService
     {
     }
 
-    public function synchronizeUserData(string $id, string $email)
+    public function synchronizeUserData(string $providerId, string $email)
     {
+        if ($this->authRepository->providerIdExists($providerId)) {
+        }
 
     }
 
