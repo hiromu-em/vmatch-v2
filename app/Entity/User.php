@@ -3,7 +3,13 @@ declare(strict_types=1);
 
 namespace Entity;
 
-class User
+final class User
 {
-
+    public function __construct(
+        private string $userId,
+        private string $email,
+        private ?string $providerId,
+        private ?string $providerName
+    ) {
+    }
 }

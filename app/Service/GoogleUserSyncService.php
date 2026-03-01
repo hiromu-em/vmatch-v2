@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Service;
 
 use Repository\UserAuthRepository;
+use Entity\User;
 
 class GoogleUserSyncService
 {
@@ -12,11 +13,20 @@ class GoogleUserSyncService
     {
     }
 
-    public function synchronizeUserData(string $providerId, string $email)
+    public function synchronizeUserData(string $providerId, string $email): User
     {
         if ($this->authRepository->providerIdExists($providerId)) {
         }
 
+        $userRecord = $this->authRepository->fetchNewUserRecord($email);
+        $this->authRepository->linkProviderUserId($userRecord['id'], $providerId, 'Google');
+
+        return new User(
+            userId: $userRecord['id'],
+            email: $userRecord['email'],
+            providerId: $providerId,
+            providerName: 'Google'
+        );
     }
 
 }
