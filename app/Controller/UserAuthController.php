@@ -144,7 +144,7 @@ class UserAuthController
         $hashPassword = $registerService->generatePasswordHash($plainPassword);
 
         try {
-            $userId = $registerService->executeRegisterNewUser($email, $hashPassword);
+            $userRecord = $registerService->executeRegisterNewUser($email, $hashPassword);
 
         } catch (DatabaseException $e) {
             http_response_code(500);
@@ -153,8 +153,7 @@ class UserAuthController
 
         // 登録成功後、不要なSession情報をクリア
         $this->session->clear();
-
-        $this->session->setStr('user_id', $userId);
+        $this->session->setStr('user_id', $userRecord['id']);
 
         $this->response->redirect('/init-profile-setting');
     }
@@ -193,6 +192,6 @@ class UserAuthController
 
         $userId = $executeUserLoginResult->value();
         $this->session->setStr('user_id', $userId);
-        
+
     }
 }
