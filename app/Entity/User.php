@@ -8,6 +8,7 @@ final class User
     public function __construct(
         private string $userId,
         private string $email,
+        private bool $isNewUser,
         private ?string $providerId,
         private ?string $providerName
     ) {

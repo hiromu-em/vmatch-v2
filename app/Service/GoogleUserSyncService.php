@@ -24,6 +24,7 @@ class GoogleUserSyncService
         return new User(
             userId: $userRecord['id'],
             email: $userRecord['email'],
+            isNewUser: true,
             providerId: $providerId,
             providerName: 'Google'
         );
