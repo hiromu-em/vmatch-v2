@@ -13,4 +13,9 @@ final class User
         private ?string $providerName
     ) {
     }
+
+    public function isNewUser(): bool
+    {
+        return $this->isNewUser;
+    }
 }
