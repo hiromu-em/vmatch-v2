@@ -14,7 +14,9 @@ class UserAuthRepository
      */
     public function findUserRecord(string $email): array
     {
-        $statement = $this->pdo->prepare("SELECT * FROM users_vmatch WHERE email = ?");
+        $statement = $this->pdo->prepare(
+            "SELECT * FROM users_vmatch LEFT JOIN users_vmatch_providers USING(id) WHERE users_vmatch.email = ?"
+        );
         $statement->execute([$email]);
         $result = $statement->fetch();
 
