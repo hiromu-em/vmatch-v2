@@ -16,6 +16,16 @@ class GoogleUserSyncService
     public function synchronizeUserData(string $providerId, string $email): User
     {
         if ($this->authRepository->providerIdExists($providerId)) {
+
+            $userRecord = $this->authRepository->findUserRecord($email);
+
+            return new User(
+                userId: $userRecord['id'],
+                email: $userRecord['email'],
+                isNewUser: false,
+                providerId: $providerId,
+                providerName: 'Google'
+            );
         }
 
         $userRecord = $this->authRepository->fetchNewUserRecord($email);
