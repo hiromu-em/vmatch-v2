@@ -50,6 +50,9 @@ class OauthController
 
         $tokenData = $client->verifyIdToken();
         $userAccount = $googleUserSyncService->synchronizeUserData($tokenData['sub'], $tokenData['email']);
+
+        $this->session->clear();
+        $this->session->setArray('user_info', $userAccount->getUserRecord());
     }
 
     public function handleGoogleOauthCode(GoogleOauth $googleOauth): never
