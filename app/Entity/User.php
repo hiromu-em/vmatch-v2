@@ -14,11 +14,6 @@ final class User
     ) {
     }
 
-    public function isNewUser(): bool
-    {
-        return $this->isNewUser;
-    }
-
     public function getUserRecord(): array
     {
         return [
