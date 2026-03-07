@@ -15,7 +15,8 @@ class UserAuthRepository
     public function findUserRecordByEmail(string $email): array
     {
         $statement = $this->pdo->prepare(
-            "SELECT * FROM users_vmatch LEFT JOIN users_vmatch_providers USING(id) WHERE users_vmatch.email = ?"
+            "SELECT * FROM users_vmatch LEFT JOIN users_vmatch_providers USING(id) 
+            WHERE users_vmatch.email = ? AND provider_id IS NULL"
         );
         $statement->execute([$email]);
         $result = $statement->fetch();
