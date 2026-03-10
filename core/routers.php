@@ -10,9 +10,8 @@ use Service\UserRegisterService;
 use Service\UserLoginService;
 use Service\GoogleUserSyncService;
 use Repository\UserAuthRepository;
-use Vmatch\FormValidation;
-use Vmatch\GoogleOauth;
-use Vmatch\TwitterOauth;
+use Vminder\FormValidation;
+use Vminder\GoogleOauth;
 
 use Google\Client;
 
