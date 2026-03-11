@@ -4,13 +4,10 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../core/routers.php';
 
-use Core\Config;
-
-function loadenv()
+function loadEnv(): void
 {
-    $config = new Config($_SERVER['HTTP_HOST']);
-
-    if ($config->isLocalEnvironment()) {
+    $httpHost = $_SERVER['HTTP_HOST'];
+    if (strpos($httpHost, 'localhost') !== false) {
         $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
         $dotenv->load();
     }
