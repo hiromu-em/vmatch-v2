@@ -131,5 +131,6 @@ $router->add(
     '/reminder-register',
     ['class' => Controller\DashboardController::class, 'method' => 'assignChannelIdToUser'],
     [
+        new DashboardService(new DashboardRepository(generatePdo()))
     ]
 );
