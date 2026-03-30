@@ -17,10 +17,11 @@ class DashboardService
     }
 
     /**
-     * ユーザーが選択したchannelIdとユーザーが登録しているchannelIdを比較する
+     * ユーザーが選択したchannelIdとユーザーがリマインダ―登録しているchannelIdを比較する<br>
+     * 未登録のChannelIdが含まれていれば、該当するChannelIdを返す
      * @return array 未登録のChannelId
      */
-    public function compareRegisteredChannelIds(array $selectedChannelIds, string $userId): array
+    public function fetchUnregisteredChannelIds(array $selectedChannelIds, string $userId): array
     {
         $registeredChannelIds = $this->dashboardRepository->fetchRegisteredChannelIds($userId);
 
