@@ -16,4 +16,15 @@ class DashboardRepository
 
         return $statement->fetchAll(\PDO::FETCH_UNIQUE | \PDO::FETCH_ASSOC);
     }
+
+    /**
+     * ユーザーがリマインダ―登録しているVtuberのChannelIDを取得する
+     */
+    public function fetchRegisteredChannelIds(string $userId): array
+    {
+        $statement = $this->pdo->prepare('SELECT channel_id FROM users_notification_list WHERE id = ?');
+        $statement->execute([$userId]);
+
+        return $statement->fetchAll(\PDO::FETCH_COLUMN);
+    }
 }
