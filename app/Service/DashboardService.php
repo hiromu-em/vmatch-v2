@@ -15,4 +15,15 @@ class DashboardService
     {
         return $this->dashboardRepository->fetchVtuberRecords();
     }
+
+    /**
+     * ユーザーが選択したchannelIdとユーザーが登録しているchannelIdを比較する
+     * @return array 未登録のChannelId
+     */
+    public function compareRegisteredChannelIds(array $selectedChannelIds, string $userId): array
+    {
+        $registeredChannelIds = $this->dashboardRepository->fetchRegisteredChannelIds($userId);
+
+        return array_diff($selectedChannelIds, $registeredChannelIds);
+    }
 }
