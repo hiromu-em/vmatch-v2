@@ -25,6 +25,6 @@ class DashboardService
     {
         $registeredChannelIds = $this->dashboardRepository->fetchRegisteredChannelIds($userId);
 
-        return array_diff($selectedChannelIds, $registeredChannelIds);
+        return array_values(array_diff($selectedChannelIds, $registeredChannelIds));
     }
 }
