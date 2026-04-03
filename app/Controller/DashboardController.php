@@ -27,7 +27,8 @@ class DashboardController
     }
 
     /**
-     * 選択したchannelIDをユーザーと紐付ける
+    * 選択したChannelIDがユーザーの紐付けているchannelIDと重複しているか比較する<br>
+     * 重複していない場合、ユーザーIDと選択したChannelIDを紐付ける
      */
     public function assignChannelIdToUser()
     {
