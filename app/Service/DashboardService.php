@@ -27,4 +27,14 @@ class DashboardService
 
         return array_values(array_diff($selectedChannelIds, $registeredChannelIds));
     }
+
+    /**
+     * ユーザーIDと未登録ChannelIDを紐付ける
+     * @param array $unregisteredChannelIds 未登録のchannelId
+     * @param string $userId ユーザーID
+     */
+    public function assignUserIdToUnregisteredChannelIds(array $unregisteredChannelIds, string $userId): void
+    {
+        $this->dashboardRepository->insertNotificationList($unregisteredChannelIds, $userId);
+    }
 }
