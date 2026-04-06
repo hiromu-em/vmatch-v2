@@ -35,12 +35,25 @@ class DashboardController
     }
 
     /**
-    * 選択したChannelIDがユーザーの紐付けているchannelIDと重複しているか比較する<br>
-     * 重複していない場合、ユーザーIDと選択したChannelIDを紐付ける
+     * 選択したchannelIDがユーザーと紐付くchannelIDと重複しているか比較する<br>
+     * 重複していない場合、ユーザーIDと選択したchannelIDを紐付ける
      */
-    public function assignChannelIdToUser()
+    public function assignChannelIdToUser(DashboardService $dashboardService)
     {
         $selectChannelIds = $this->request->fetchInputValue('selected_members');
         $userId = $this->session->getStr('user_id');
+
+        // 未登録のchannelIDを取得する
+        $unregisteredChannelIds = $dashboardService->fetchUnregisteredChannelIds($selectChannelIds, $userId);
+
+        if (!empty($unregisteredChannelIds)) {
+
+            // 未登録のchannelIDをユーザーIDと紐付ける
+            $dashboardService->assignUserIdToUnregisteredChannelIds($unregisteredChannelIds, $userId);
+
+            $this->response->redirect('/dashboard');
+        }
+
+        $this->response->redirect('/dashboard');
     }
 }
