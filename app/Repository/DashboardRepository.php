@@ -31,7 +31,7 @@ class DashboardRepository
     /**
      * ユーザーIDとChannelIDを紐付けたレコードをNotificationListに追加する
      * @param array $channelIds 登録するChannelIdの配列
-     * @param array $newReminderRecords ユーザーIDとChannelIDを紐付けたレコードの配列
+     * @param string $userId ユーザーID
      */
     public function insertNotificationList(array $channelIds, string $userId): void
     {
