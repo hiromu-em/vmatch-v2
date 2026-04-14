@@ -14,37 +14,30 @@ class GoogleUserService
     }
 
     /**
-     * ユーザーデータをDBのレコードと同期する
+     * プロパイダ―IDを基にしてDBからユーザーレコードを取得する
      */
-    public function synchronizeUserData(
+    public function fetchProviderId(
         string $providerId,
-        string $email,
         ?string $refreshToken = null
     ): User {
-        if ($this->authRepository->providerIdExists($providerId)) {
 
-            $userRecord = $this->authRepository->findUserRecordByProviderId($providerId);
-
-            return new User(
-                userId: $userRecord['id'],
-                email: $userRecord['email'],
-                isNewUser: false,
-                providerId: $providerId,
-                providerName: 'Google',
-                refreshToken: $refreshToken
-            );
-        }
-
-        $userRecord = $this->authRepository->fetchNewUserRecord($email);
-        $this->authRepository->linkProviderUserId($userRecord['id'], $providerId, 'Google', $refreshToken);
+        $userRecord = $this->authRepository->findUserRecordByProviderId($providerId);
 
         return new User(
             userId: $userRecord['id'],
             email: $userRecord['email'],
-            isNewUser: true,
+            isNewUser: false,
             providerId: $providerId,
             providerName: 'Google',
             refreshToken: $refreshToken
         );
+    }
+
+    /**
+     * 登録済みのプロパイダ―がDBのレコードに存在するか確認する
+     */
+    public function providerRecordExists(string $providerId): bool
+    {
+        return $this->authRepository->providerIdExists($providerId);
     }
 }

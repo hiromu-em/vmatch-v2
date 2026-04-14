@@ -48,12 +48,14 @@ class OauthController
 
         $tokenData = $client->verifyIdToken();
 
-        // DBのレコードとtokenDataを同期させてユーザーアカウントを取得する
-        $userAccount = $googleUserService->synchronizeUserData(
-            $tokenData['sub'],
-            $tokenData['email'],
-            $googleAccessToken['refresh_token'] ?? null
-        );
+        // プロパイダ―IDがDBのレコードに存在するか確認する
+        if ($googleUserService->providerRecordExists($tokenData['sub'])) {
+
+            $userAccount = $googleUserService->fetchProviderId(
+                $tokenData['sub'],
+                $googleAccessToken['refresh_token'] ?? null
+            );
+        }
 
         $this->session->setStr('user_id', $userAccount->getUserId());
 
