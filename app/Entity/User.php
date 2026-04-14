@@ -10,7 +10,8 @@ final class User
         private string $email,
         private bool $isNewUser,
         private ?string $providerId,
-        private ?string $providerName
+        private ?string $providerName,
+        private ?string $refreshToken
     ) {
     }
 
