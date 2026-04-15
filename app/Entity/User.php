@@ -9,8 +9,8 @@ final class User
         private string $userId,
         private string $email,
         private bool $isNewUser,
-        private ?string $providerId,
-        private ?string $providerName,
+        private ?string $providerId = null,
+        private ?string $providerName = null,
         private ?string $refreshToken = null
     ) {
     }

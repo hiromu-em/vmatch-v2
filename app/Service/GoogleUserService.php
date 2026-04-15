@@ -31,6 +31,21 @@ class GoogleUserService
     }
 
     /**
+     * usersテーブルに新規ユーザーとして登録する。
+     * ユーザーID, email, isNewUserをUserクラスにセットする
+     */
+    public function registerNewUser(string $email): User
+    {
+        $userRecord = $this->authRepository->fetchNewUserRecord($email);
+
+        return new User(
+            $userRecord['id'],
+            $userRecord['email'],
+            isNewUser: true
+        );
+    }
+
+    /**
      * 登録済みのプロパイダ―がDBのレコードに存在するか確認する
      */
     public function providerRecordExists(string $providerId): bool
