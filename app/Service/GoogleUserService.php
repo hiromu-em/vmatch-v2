@@ -14,9 +14,9 @@ class GoogleUserService
     }
 
     /**
-     * プロパイダ―IDを基にしてDBからユーザーレコードを取得する
+     * プロパイダ―IDを基にしてDBからユーザーアカウントを取得する
      */
-    public function fetchProviderId(string $providerId): User
+    public function fetchUserAccount(string $providerId): User
     {
 
         $userRecord = $this->authRepository->findUserRecordByProviderId($providerId);
