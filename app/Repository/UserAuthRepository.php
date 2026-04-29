@@ -54,29 +54,17 @@ class UserAuthRepository
     }
 
     /**
-     * 新規ユーザーレコードを取得する
+     * 新規ユーザー登録後、ユーザーIDを取得する
      */
-    public function fetchNewUserRecord($email, $passwordHash = null): array
+    public function fetchNewUserId(string $email, ?string $passwordHash = null): string
     {
         $stetement = $this->pdo->prepare(
-            "SELECT * FROM users WHERE email = ? AND password_hash = ?"
+            "INSERT INTO users(email, password_hash) VALUES (?, ?) RETURNING id"
         );
         $stetement->execute([$email, $passwordHash]);
-        $userRecord = $stetement->fetch();
+        $result = $stetement->fetch();
 
-        return $userRecord;
-    }
-
-    /**
-     * 新規ユーザーレコードをDBに保存する
-     */
-    public function insertNewUserRecord($email, $passwordHash = null)
-    {
-        $stetement = $this->pdo->prepare(
-            "INSERT INTO users(email, password_hash) VALUES (?, ?)"
-        );
-        $stetement->execute([$email, $passwordHash]);
-        
+        return $result['id'] ?? '';
     }
 
     /**
