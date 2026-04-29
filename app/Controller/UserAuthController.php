@@ -142,7 +142,7 @@ class UserAuthController
         $hashPassword = $registerService->generatePasswordHash($plainPassword);
 
         try {
-            $userRecord = $registerService->executeRegisterNewUser($email, $hashPassword);
+            $userid = $registerService->executeRegisterNewUser($email, $hashPassword);
 
         } catch (DatabaseException $e) {
             $viewRenderer->render('systemError');
@@ -150,7 +150,7 @@ class UserAuthController
 
         // 登録成功後、不要なSession情報をクリア
         $this->session->clear();
-        $this->session->setStr('user_id', $userRecord['id']);
+        $this->session->setStr('user_id', $userid);
 
         $this->response->redirect('/dashboard');
     }
